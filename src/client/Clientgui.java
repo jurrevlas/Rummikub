@@ -101,6 +101,16 @@ public class Clientgui {
 				
 			}
 		});
+		
+		JMenuItem quitGame = new JMenuItem("Quit Game");
+		quitGame.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
 		Game.add(createGame);
 	}
 	
