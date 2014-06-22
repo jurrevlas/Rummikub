@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.ScrollPane;
 import java.util.Hashtable;
@@ -16,7 +17,6 @@ import javax.swing.JScrollPane;
 public class GameBoard extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	//private ImageIcon tiles[];
 	Hashtable<String, ImageIcon> tiles = new Hashtable<String, ImageIcon>();
 	
 	public GameBoard(){
@@ -45,6 +45,27 @@ public class GameBoard extends JPanel{
 		
 		add(sp, BorderLayout.PAGE_END);
 		
+		FlowLayout fl = new FlowLayout(FlowLayout.LEFT, 5, 10);
+		JPanel centerpanel = new JPanel(fl);
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel("               "));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		centerpanel.add(new JLabel(tiles.get("Blk2")));
+		
+		add(centerpanel, BorderLayout.CENTER);
 		
 	}
 }
