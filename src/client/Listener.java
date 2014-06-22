@@ -9,9 +9,10 @@ public class Listener extends Thread {
 	private Connection con;
 	private boolean stopped;
 	
+
 	public Listener(Connection con){		
 		this.con = con;		
-		stopped = false;		
+		stopped = false;
 	}
 	
 	
@@ -21,13 +22,13 @@ public class Listener extends Thread {
 	
 	public void listen(){
 		Object temp;
+
 		try {			
-			in = new ObjectInputStream(con.socket.getInputStream());			
+			in = new ObjectInputStream(con.socket.getInputStream());		
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
-		
-		
+
 		while(!stopped){
 			try {				
 				temp = in.readObject();

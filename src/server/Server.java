@@ -32,7 +32,17 @@ public class Server extends Thread{
 	public void addClient(Socket socket){
 		Client cli = new Client(socket,this);
 		
+<<<<<<< HEAD
 		
+=======
+	}
+	
+	public void run(){
+		int i =0;
+		while(true){
+			
+		}
+>>>>>>> ea5f5500d1f6aa57621f267bedb3eb9d87709297
 		
 	}
 		

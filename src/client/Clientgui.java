@@ -139,6 +139,9 @@ public class Clientgui {
 		try {
 			gui.con = new Connection(ip,port);
 			gui.con.start();
+			gui.con = new Connection(ip, port);
+			return true;
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
