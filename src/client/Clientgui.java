@@ -136,6 +136,13 @@ public class Clientgui {
 
 
 	public boolean addConnection(String ip, int port){
+		try {
+			gui.con = new Connection(ip,port);
+			gui.con.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 }

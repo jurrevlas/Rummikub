@@ -23,6 +23,7 @@ public class Server extends Thread{
 	public Server(int port){
 		
 		serverSocket = new ServerThread(port,this);		
+		serverSocket.start();
 		clients = new LinkedList<Client>();
 		game = new Game();		
 		System.out.println("Server started on port... "+port);
@@ -30,23 +31,11 @@ public class Server extends Thread{
 	
 	public void addClient(Socket socket){
 		Client cli = new Client(socket,this);
-		/*
-		if(!game.isFull()){
-			cli.sendMessage(new Message("Server",MessageType.Introduction));
-		}else{
-			cli.sendMessage(new Message("Server",MessageType.GameFull));
-		}
-		*/
+		
+		
 		
 	}
-	
-	public void run(){
-		int i =0;
-		while(true)
-			System.out.println(i++);
 		
-	}
-	
 	public void sendAll(Message message){
 		for(Client cli : clients)
 			cli.sendMessage(message);
