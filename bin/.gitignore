@@ -1,1 +1,6 @@
-/client
+/client/
+/game/
+/message/
+/server/
+/unittest/
+/images/

@@ -25,6 +25,7 @@ public class Server {
 		serverSocket = new ServerThread(port,this);		
 		clients = new LinkedList<Client>();
 		game = new Game();		
+		System.out.println("Server started on port... "+port);
 	}
 	
 	public void addClient(Socket socket){

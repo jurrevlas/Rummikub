@@ -19,14 +19,15 @@ public class JoinGame extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfIP;
-	private JTextField textField;
+	private JTextField tfPort;
+	private final Clientgui gui;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			JoinGame dialog = new JoinGame();
+			JoinGame dialog = new JoinGame(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -37,7 +38,8 @@ public class JoinGame extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public JoinGame() {
+	public JoinGame(final Clientgui gui) {
+		this.gui = gui;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,13 +87,13 @@ public class JoinGame extends JDialog {
 			contentPanel.add(lblPort, gbc_lblPort);
 		}
 		{
-			textField = new JTextField();
-			textField.setText("12345");
-			GridBagConstraints gbc_textField = new GridBagConstraints();
-			gbc_textField.gridx = 1;
-			gbc_textField.gridy = 2;
-			contentPanel.add(textField, gbc_textField);
-			textField.setColumns(10);
+			tfPort = new JTextField();
+			tfPort.setText("12345");
+			GridBagConstraints gbc_tfPort = new GridBagConstraints();
+			gbc_tfPort.gridx = 1;
+			gbc_tfPort.gridy = 2;
+			contentPanel.add(tfPort, gbc_tfPort);
+			tfPort.setColumns(10);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -101,8 +103,9 @@ public class JoinGame extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(gui.addConnection(tfIP.getText(),Integer.parseInt(tfPort.getText())));
+							dispose();
 						
-						dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -121,5 +124,7 @@ public class JoinGame extends JDialog {
 			}
 		}
 	}
+	
+	
 
 }

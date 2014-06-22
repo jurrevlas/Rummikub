@@ -1,25 +1,34 @@
 package client;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import server.Server;
 import message.Message;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 
 public class Clientgui {
 
+	private static Clientgui gui;
+	
 	private JFrame frame;
 	protected String playerName;
 	private Chat pnlChat;
+	private Connection con;
 	private Server server;
 	
 	
@@ -38,11 +47,13 @@ public class Clientgui {
 			}
 		});
 	}
+	
+	public static syn Clientgui 
 
 	/**
 	 * Create the application.
 	 */
-	public Clientgui() {
+	private Clientgui() {
 		initialize();
 	}
 
@@ -83,7 +94,7 @@ public class Clientgui {
 		JMenuItem joinGame = new JMenuItem("Join Game");
 		joinGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JoinGame join = new JoinGame();
+				JoinGame join = new JoinGame((JMenuItem)e.getSource());
 			}
 		});
 		Game.add(joinGame);
@@ -107,16 +118,24 @@ public class Clientgui {
 		});
 		
 		Game.add(createGame);
-	}
-	
-	private createGameBoard(){
-		
-	}
+	}	
 	
 	public void sendMessage(Message message){
 		//TODO
 	}
 	
-	
+	public boolean addConnection(String ip, int port){
+		if(con == null){
+			try {
+				con = new Connection(ip,port);
+			} catch (IOException e) {			
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }
