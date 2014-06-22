@@ -1,21 +1,16 @@
 package client;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
 import server.Server;
 import message.Message;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
