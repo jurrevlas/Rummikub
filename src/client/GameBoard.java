@@ -8,6 +8,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.ScrollPane;
 import java.util.Hashtable;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -45,26 +48,50 @@ public class GameBoard extends JPanel{
 		
 		add(sp, BorderLayout.PAGE_END);
 		
-		FlowLayout fl = new FlowLayout(FlowLayout.LEFT, 5, 10);
-		JPanel centerpanel = new JPanel(fl);
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel("               "));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
-		centerpanel.add(new JLabel(tiles.get("Blk2")));
 		
+		//FlowLayout fl = new FlowLayout(FlowLayout.LEFT, 5, 10);
+		
+		JPanel centerpanel = new JPanel();
+		BoxLayout bl = new BoxLayout(centerpanel, BoxLayout.Y_AXIS);
+		
+		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT, 5, 5);
+		
+		JPanel jp1 = new JPanel(fl1);
+		
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(Box.createRigidArea(new Dimension(60,86)));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		jp1.add(new JLabel(tiles.get("Blk2")));
+		
+		FlowLayout fl2 = new FlowLayout(FlowLayout.LEFT, 5, 5);
+		
+		JPanel jp2 = new JPanel(fl2);
+		
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(Box.createRigidArea(new Dimension(60,86)));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		jp2.add(new JLabel(tiles.get("Blk2")));
+		
+		centerpanel.add(jp1);
+		centerpanel.add(jp2);
 		add(centerpanel, BorderLayout.CENTER);
 		
 	}
