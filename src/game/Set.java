@@ -1,0 +1,59 @@
+package game;
+
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.TreeSet;
+
+public class Set extends LinkedList<Tile>{
+	
+	
+		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -46223845867742988L;
+
+	protected Set(){
+		super();		
+	}	
+	
+	public boolean isValid(){
+		if(size() < 3 || size() > 13)
+			return false;		
+		
+		sort();	
+		
+		boolean sameNumber = true;
+		boolean contNumber = true;
+		boolean sameColor = true;
+		boolean diffColor = true;
+		
+		TreeSet<Color> temp = new TreeSet<Color>();
+		for(int i = 0 ; i < size()-1; i++){
+			if(get(i).getNumber() != get(i+1).getNumber())
+				sameNumber = false;
+			if(get(i).getNumber()+1 != get(i+1).getNumber())
+				contNumber = false;
+			if(!get(i).getColor().equals(get(i+1).getColor()))
+				sameColor = false;
+			temp.add(get(i).getColor());
+		}
+		temp.add(peekLast().getColor());
+		if(temp.size() < size())
+			diffColor = false;
+		return sameNumber && diffColor || contNumber && sameColor;		
+	}
+	
+	public void sort(){
+		Collections.sort(this);
+	}	
+	
+	@Override
+	public String toString(){
+		String str = new String();
+		for(Tile tile : this)
+			str += tile.toString() +" ";
+		return str;		
+	}	
+}
