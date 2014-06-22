@@ -48,12 +48,12 @@ public class Clientgui {
 		});
 	}
 	
-	public static syn Clientgui 
+	
 
 	/**
 	 * Create the application.
 	 */
-	private Clientgui() {
+	public Clientgui() {
 		initialize();
 	}
 
@@ -82,8 +82,10 @@ public class Clientgui {
 		pnlChat = new Chat(this);
 		splitPane.setRightComponent(pnlChat);
 		
-		JPanel GamePanel = new JPanel();
-		splitPane.setLeftComponent(GamePanel);
+		//JPanel GamePanel = new JPanel();
+		//GamePanel.add(new GameBoard());
+		
+		splitPane.setLeftComponent(new GameBoard());
 		
 		JMenuBar mainMenu = new JMenuBar();
 		frame.setJMenuBar(mainMenu);
@@ -94,7 +96,7 @@ public class Clientgui {
 		JMenuItem joinGame = new JMenuItem("Join Game");
 		joinGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JoinGame join = new JoinGame((JMenuItem)e.getSource());
+				//JoinGame join = new JoinGame(((JMenuItem)e.getSource()));
 			}
 		});
 		Game.add(joinGame);
@@ -108,6 +110,8 @@ public class Clientgui {
 			}
 		});
 		
+		Game.add(createGame);
+		
 		JMenuItem quitGame = new JMenuItem("Quit Game");
 		quitGame.addActionListener(new ActionListener() {
 			
@@ -116,14 +120,21 @@ public class Clientgui {
 				System.exit(0);
 			}
 		});
+
 		
 		Game.add(createGame);
-	}	
+		
+
+		Game.add(quitGame);
+	}
+
 	
 	public void sendMessage(Message message){
 		//TODO
 	}
-	
+
+
+
 	public boolean addConnection(String ip, int port){
 		if(con == null){
 			try {
@@ -137,5 +148,5 @@ public class Clientgui {
 			return false;
 		}
 	}
-	
 }
+
