@@ -28,6 +28,8 @@ public class ServerThread extends Thread{
 		while(!stopped){
 			try {
 				Socket soc = socket.accept();
+				int i = 0;
+				System.out.println(++i);
 				server.addClient(soc);
 				
 				
