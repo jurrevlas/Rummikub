@@ -4,7 +4,9 @@ import game.Game;
 
 import java.net.Socket;
 import java.util.LinkedList;
+
 import message.Message;
+import message.MessageType;
 
 
 
@@ -29,7 +31,14 @@ public class Server extends Thread{
 	}
 	
 	public void addClient(Socket socket){
-		Client cli = new Client(socket,this);
+		Client cli = new Client(socket,this);		
+		if(!game.isFull()){
+			cli.sendMessage(new Message("Server",MessageType.Introduction));
+			clients.add(cli);
+		}else
+			cli.sendMessage(new Message("Server",MessageType.GameFull));
+		for(Client c:clients)
+			System.out.println(c.clientName);
 	}
 	
 	public void sendAll(Message message){
@@ -44,7 +53,9 @@ public class Server extends Thread{
 	}
 	
 	public void handleMessage(Message message){
+		switch(message.getType()){					
 		
+		}
 	}
 	
 		

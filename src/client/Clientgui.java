@@ -1,16 +1,22 @@
 package client;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import server.Server;
 import message.Message;
+import message.MessageType;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -105,7 +111,7 @@ public class Clientgui {
 		
 		createGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateGame create = new CreateGame();
+				CreateGame create = new CreateGame(gui);
 				
 			}
 		});
@@ -147,6 +153,14 @@ public class Clientgui {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public void handleMessage(Message message){
+		switch(message.getType()){
+			case Introduction: gui.con.sendMessage(new Message(gui.playerName,MessageType.Introduction)); break;
+			default : break;
+			
+		}
 	}
 }
 

@@ -3,6 +3,8 @@ package client;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import message.Message;
+
 public class Listener extends Thread {
 	
 	protected ObjectInputStream in;
@@ -21,7 +23,7 @@ public class Listener extends Thread {
 	}
 	
 	public void listen(){
-		Object temp;
+		Object temp = null;
 
 		try {			
 			in = new ObjectInputStream(con.socket.getInputStream());		
@@ -35,7 +37,9 @@ public class Listener extends Thread {
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
-			//TODO handle read objects
+			if(temp instanceof Message){
+				
+			}
 		}
 	}
 	

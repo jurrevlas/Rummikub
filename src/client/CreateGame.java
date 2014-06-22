@@ -27,13 +27,14 @@ public class CreateGame extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfPort;
 	private JTextField maxPlayers;	
+	private Clientgui gui;
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CreateGame dialog = new CreateGame();
+			CreateGame dialog = new CreateGame(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -44,7 +45,8 @@ public class CreateGame extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CreateGame() {
+	public CreateGame(Clientgui gui) {
+		this.gui = gui;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

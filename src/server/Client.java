@@ -15,6 +15,7 @@ public class Client {
 	protected String clientName;
 	
 	public Client(Socket socket, Server server){
+		clientName = "";
 		this.socket = socket;
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
