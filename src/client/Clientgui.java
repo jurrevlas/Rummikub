@@ -7,15 +7,17 @@ import javax.swing.JPanel;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import server.Server;
 import message.Message;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Clientgui {
@@ -23,6 +25,7 @@ public class Clientgui {
 	private JFrame frame;
 	protected String playerName;
 	private Chat pnlChat;
+	private Server server;
 	
 	
 	/**
@@ -63,7 +66,7 @@ public class Clientgui {
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.8);
+		splitPane.setResizeWeight(0.9);
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
 		gbc_splitPane.fill = GridBagConstraints.BOTH;
 		gbc_splitPane.gridx = 0;
@@ -83,27 +86,22 @@ public class Clientgui {
 		mainMenu.add(Game);
 		
 		JMenuItem joinGame = new JMenuItem("Join Game");
+		joinGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JoinGame join = new JoinGame();
+			}
+		});
 		Game.add(joinGame);
 		
 		JMenuItem createGame = new JMenuItem("Create Game");
-		Game.add(createGame);
 		
 		createGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CreateGame create = new CreateGame(instance of clientgui);
-                
-            }
-        });
-		
-		JMenuItem quitGame = new JMenuItem("Quit Game");
-		quitGame.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				CreateGame create = new CreateGame();
+				
 			}
 		});
-		Game.add(quitGame);
+		Game.add(createGame);
 	}
 	
 	
