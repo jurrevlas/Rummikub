@@ -9,7 +9,7 @@ import message.Message;
 import message.MessageType;
 
 
-public class Server {	
+public class Server extends Thread{	
 	
 	/** Accepts new clients*/
 	private ServerThread serverSocket;
@@ -30,11 +30,20 @@ public class Server {
 	
 	public void addClient(Socket socket){
 		Client cli = new Client(socket,this);
+		/*
 		if(!game.isFull()){
 			cli.sendMessage(new Message("Server",MessageType.Introduction));
 		}else{
 			cli.sendMessage(new Message("Server",MessageType.GameFull));
 		}
+		*/
+		
+	}
+	
+	public void run(){
+		int i =0;
+		while(true)
+			System.out.println(i++);
 		
 	}
 	
@@ -53,7 +62,7 @@ public class Server {
 		
 	}
 	
-	
+		
 	
 
 }

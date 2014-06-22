@@ -10,10 +10,14 @@ public class Listener extends Thread {
 	private boolean stopped;
 	
 	public Listener(Connection con){
+		System.out.println("recursive?");
 		this.con = con;
+		System.out.println("why?");
 		stopped = false;
-		try {
+		System.out.println(con.socket.toString());
+		try {			
 			in = new ObjectInputStream(con.socket.getInputStream());
+			System.out.println("why?");
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
@@ -27,7 +31,7 @@ public class Listener extends Thread {
 	public void listen(){
 		Object temp;
 		while(!stopped){
-			try {
+			try {				
 				temp = in.readObject();
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();

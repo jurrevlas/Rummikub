@@ -1,21 +1,16 @@
 package client;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
 import server.Server;
 import message.Message;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -23,7 +18,7 @@ import java.io.IOException;
 
 public class Clientgui {
 
-	private static Clientgui gui;
+	private static Clientgui gui = new Clientgui();
 	
 	private JFrame frame;
 	protected String playerName;
@@ -39,7 +34,7 @@ public class Clientgui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Clientgui window = new Clientgui();
+					Clientgui window = Clientgui.getInstance();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,10 +45,15 @@ public class Clientgui {
 	
 	
 
+	public static Clientgui getInstance(){
+		return gui;
+	}
+	
+	
 	/**
 	 * Create the application.
 	 */
-	public Clientgui() {
+	private Clientgui() {
 		initialize();
 	}
 
@@ -96,7 +96,7 @@ public class Clientgui {
 		JMenuItem joinGame = new JMenuItem("Join Game");
 		joinGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JoinGame join = new JoinGame(((JMenuItem)e.getSource()));
+				JoinGame join = new JoinGame(gui);
 			}
 		});
 		Game.add(joinGame);
@@ -136,17 +136,7 @@ public class Clientgui {
 
 
 	public boolean addConnection(String ip, int port){
-		if(con == null){
-			try {
-				con = new Connection(ip,port);
-			} catch (IOException e) {			
-				e.printStackTrace();
-				return false;
-			}
-			return true;
-		}else{
-			return false;
-		}
+		return false;
 	}
 }
 

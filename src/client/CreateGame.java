@@ -109,6 +109,7 @@ public class CreateGame extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Server server = new Server(Integer.decode(tfPort.getText()));
+						server.start();
 						dispose();
 					}
 				});

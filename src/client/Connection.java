@@ -18,8 +18,12 @@ public class Connection {
 	
 	public Connection(String ip, int port) throws IOException{
 		socket = new Socket(ip,port);
+		System.out.println(socket.toString());
 		out = new ObjectOutputStream(socket.getOutputStream());
+		System.out.println("test3");
 		listener = new Listener(this);
+		
+		System.out.println("test");
 		
 	}
 	

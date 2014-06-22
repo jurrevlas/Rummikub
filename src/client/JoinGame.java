@@ -103,9 +103,8 @@ public class JoinGame extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(gui.addConnection(tfIP.getText(),Integer.parseInt(tfPort.getText())));
-							dispose();
-						
+						gui.addConnection(tfIP.getText(),Integer.parseInt(tfPort.getText()));
+						dispose();						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -123,7 +122,10 @@ public class JoinGame extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		setVisible(true);
 	}
+	
 	
 	
 
