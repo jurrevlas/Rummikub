@@ -71,8 +71,10 @@ public class Clientgui {
 		pnlChat = new Chat(this);
 		splitPane.setRightComponent(pnlChat);
 		
-		JPanel GamePanel = new JPanel();
-		splitPane.setLeftComponent(GamePanel);
+		//JPanel GamePanel = new JPanel();
+		//GamePanel.add(new GameBoard());
+		
+		splitPane.setLeftComponent(new GameBoard());
 		
 		JMenuBar mainMenu = new JMenuBar();
 		frame.setJMenuBar(mainMenu);
@@ -97,6 +99,8 @@ public class Clientgui {
 			}
 		});
 		
+		Game.add(createGame);
+		
 		JMenuItem quitGame = new JMenuItem("Quit Game");
 		quitGame.addActionListener(new ActionListener() {
 			
@@ -105,18 +109,10 @@ public class Clientgui {
 				System.exit(0);
 			}
 		});
-		
-		Game.add(createGame);
-	}
-	
-	private createGameBoard(){
-		
+		Game.add(quitGame);
 	}
 	
 	public void sendMessage(Message message){
 		//TODO
 	}
-	
-	
-	
 }
