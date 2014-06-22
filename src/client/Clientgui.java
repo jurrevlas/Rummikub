@@ -109,6 +109,9 @@ public class Clientgui {
 		Game.add(createGame);
 	}
 	
+	private createGameBoard(){
+		
+	}
 	
 	public void sendMessage(Message message){
 		//TODO
