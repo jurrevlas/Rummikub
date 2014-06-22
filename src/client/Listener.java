@@ -15,12 +15,7 @@ public class Listener extends Thread {
 		System.out.println("why?");
 		stopped = false;
 		System.out.println(con.socket.toString());
-		try {			
-			in = new ObjectInputStream(con.socket.getInputStream());
-			System.out.println("why?");
-		} catch (IOException e) {			
-			e.printStackTrace();
-		}
+		
 	}
 	
 	
@@ -30,6 +25,14 @@ public class Listener extends Thread {
 	
 	public void listen(){
 		Object temp;
+		
+		try {			
+			in = new ObjectInputStream(con.socket.getInputStream());
+			System.out.println("why?");
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
+		
 		while(!stopped){
 			try {				
 				temp = in.readObject();
