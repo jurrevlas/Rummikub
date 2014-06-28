@@ -28,7 +28,7 @@ public class TestClient {
 			
 			try {
 				if(in.available() <= 0)
-					temp = in.readObject().toString();
+					temp = in.readObject();
 					if(temp instanceof ChatMessage)
 						System.out.println(((ChatMessage) temp).getSender() + " " + ((ChatMessage) temp).getMessage());
 					else System.out.println(temp);
