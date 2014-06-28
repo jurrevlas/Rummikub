@@ -4,19 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
 import server.Server;
-import message.Message;
-import message.MessageType;
-
+import message.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -134,7 +129,10 @@ public class Clientgui {
 
 	
 	public void sendMessage(Message message){
-		//TODO
+		if(gui.con != null)
+			gui.con.sendMessage(message);
+		//TODO else get angry
+			
 	}
 
 
@@ -142,8 +140,7 @@ public class Clientgui {
 	public boolean addConnection(String ip, int port){
 		try {
 			gui.con = new Connection(ip,port);
-			gui.con.start();
-			gui.con = new Connection(ip, port);
+			gui.con.start();			
 			return true;
 
 		} catch (IOException e) {
@@ -154,10 +151,9 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
-		switch(message.getType()){
-			case Introduction: gui.con.sendMessage(new Message(gui.playerName,MessageType.Introduction)); break;
-			default : break;
+		if(message instanceof Introduction)
+			sendMessage(new Introduction(gui.playerName));
 			
-		}
+		
 	}
 }
