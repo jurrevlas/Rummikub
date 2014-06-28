@@ -11,7 +11,7 @@ public class Tile implements Serializable, Comparable<Tile>{
 	private Color color;
 	private int number;
 	
-	protected Tile(Color color, int number){
+	public Tile(Color color, int number){
 		this.color = color;
 		this.number = number;
 	}

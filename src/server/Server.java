@@ -30,15 +30,14 @@ public class Server extends Thread{
 		System.out.println("Server started on port... "+port);
 	}
 	
-	public void addClient(Socket socket){
+	public  void addClient(Socket socket){
 		Client cli = new Client(socket,this);		
 		if(!game.isFull()){
 			cli.sendMessage(new Message("Server",MessageType.Introduction));
 			clients.add(cli);
 		}else
 			cli.sendMessage(new Message("Server",MessageType.GameFull));
-		for(Client c:clients)
-			System.out.println(c.clientName);
+		System.out.println(clients.size());
 	}
 	
 	public void sendAll(Message message){
@@ -59,6 +58,8 @@ public class Server extends Thread{
 	}
 	
 		
-	
+	public static void main(String[] args){
+		Server server = new Server(12345);
+	}
 
 }

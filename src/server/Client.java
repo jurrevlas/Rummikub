@@ -39,5 +39,9 @@ public class Client {
 		return clientName;
 	}
 	
-
+	@Override
+	public String toString(){
+		return clientName;
+	}
+	
 }
