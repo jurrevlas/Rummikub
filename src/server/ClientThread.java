@@ -60,8 +60,9 @@ public class ClientThread extends Thread {
 			if(temp instanceof Introduction){				
 					client.clientName = ((Introduction)temp).getSender();
 					client.server.game.addPlayer(new Player(((Introduction)temp).getSender()));
-			}else
+			}else{
 					client.server.handleMessage((Message) temp);
+			}
 			
 		}
 	}

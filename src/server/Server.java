@@ -45,6 +45,7 @@ public class Server extends Thread{
 		}else
 			cli.sendMessage(new GameFull("Server"));
 		System.out.println(clients.size());
+		System.out.println(game.getPlayers().size());
 	}
 	
 	public void removeClient(Client cli){
