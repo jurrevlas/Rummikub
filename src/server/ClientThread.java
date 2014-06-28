@@ -53,7 +53,7 @@ public class ClientThread extends Thread {
 					this.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 			if(temp instanceof Introduction)				
