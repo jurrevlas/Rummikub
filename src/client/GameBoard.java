@@ -1,12 +1,17 @@
 package client;
 
+import game.Color;
+import game.Set;
+import game.Tile;
+
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.ScrollPane;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Hashtable;
 
 import javax.swing.Box;
@@ -20,10 +25,10 @@ import javax.swing.JScrollPane;
 public class GameBoard extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	Hashtable<String, ImageIcon> tiles = new Hashtable<String, ImageIcon>();
+	//Hashtable<String, ImageIcon> tiles = new Hashtable<String, ImageIcon>();
 	
 	public GameBoard(){
-		
+		/*
 		for(game.Color c : game.Color.values()){
 			for(int i = 1; i<=13; i++){
 				tiles.put(c.toString()+i, new ImageIcon("src/images/"+c.toString()+i+".png"));
@@ -31,16 +36,20 @@ public class GameBoard extends JPanel{
 		}
 		tiles.put("Blkj", new ImageIcon("src/images/Blkj.png"));
 		tiles.put("Redj", new ImageIcon("src/images/Redj.png"));
-		
-		setBackground(Color.black);
+		*/
+		setBackground(java.awt.Color.darkGray);
 		setLayout(new BorderLayout());
 		
-		FlowLayout flow = new FlowLayout();
-		JPanel lowerpanel = new JPanel(flow);
-		
-		lowerpanel.add(new JLabel(tiles.get("Yel1")));
-		lowerpanel.add(new JLabel(tiles.get("Blk2")));
-		lowerpanel.add(new JLabel(tiles.get("Redj")));
+		//FlowLayout flow = new FlowLayout();
+		//JPanel lowerpanel = new JPanel(flow);
+		Set s1 = new Set();
+		s1.add(new Tile(Color.Blue, 1));
+		s1.add(new Tile(Color.Yellow, 5));
+		s1.add(new Tile(Color.Black, 8));
+		GameBoardRow lowerpanel = new GameBoardRow(s1);
+		//lowerpanel.add(new JLabel(tiles.get("Yel1")));
+		//lowerpanel.add(new JLabel(tiles.get("Blk2")));
+		//lowerpanel.add(new JLabel(tiles.get("Redj")));
 		
 		JScrollPane sp = new JScrollPane(lowerpanel,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
@@ -48,50 +57,51 @@ public class GameBoard extends JPanel{
 		
 		add(sp, BorderLayout.PAGE_END);
 		
-		
-		//FlowLayout fl = new FlowLayout(FlowLayout.LEFT, 5, 10);
-		
 		JPanel centerpanel = new JPanel();
+		centerpanel.setBackground(java.awt.Color.darkGray);
 		new BoxLayout(centerpanel, BoxLayout.Y_AXIS);
 		
+		
+		/*
 		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT, 5, 5);
 		
 		JPanel jp1 = new JPanel(fl1);
-		
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(Box.createRigidArea(new Dimension(60,86)));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		jp1.add(new JLabel(tiles.get("Blk2")));
-		
-		FlowLayout fl2 = new FlowLayout(FlowLayout.LEFT, 5, 5);
-		
-		JPanel jp2 = new JPanel(fl2);
-		
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(Box.createRigidArea(new Dimension(60,86)));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-		jp2.add(new JLabel(tiles.get("Blk2")));
-
-		centerpanel.add(jp1);
-		centerpanel.add(jp2);
+		JLabel whatever = new JLabel(tiles.get("Blk2"));
+		whatever.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(e.getSource());
+			}
+		});
+*/
+		Set s = new Set();
+		s.add(new Tile(Color.Black, 1));
+		centerpanel.add(new GameBoardRow(s));
 		add(centerpanel, BorderLayout.CENTER);
 		
 	}

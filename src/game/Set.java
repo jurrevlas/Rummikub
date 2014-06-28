@@ -14,7 +14,7 @@ public class Set extends LinkedList<Tile>{
 	 */
 	private static final long serialVersionUID = -46223845867742988L;
 
-	protected Set(){
+	public Set(){
 		super();		
 	}	
 	
