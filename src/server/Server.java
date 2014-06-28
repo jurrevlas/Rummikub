@@ -3,8 +3,12 @@ package server;
 import game.Game;
 
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
+import message.ChatMessage;
 import message.Message;
 import message.MessageType;
 
@@ -23,11 +27,11 @@ public class Server extends Thread{
 	
 	public Server(int port){
 		
-		serverSocket = new ServerThread(port,this);		
-		serverSocket.start();
 		clients = new LinkedList<Client>();
-		game = new Game();		
+		game = new Game();
 		System.out.println("Server started on port... "+port);
+		serverSocket = new ServerThread(port,this);	
+		serverSocket.start();
 	}
 	
 	public  void addClient(Socket socket){
@@ -58,8 +62,14 @@ public class Server extends Thread{
 	}
 	
 		
-	public static void main(String[] args){
+	public static void main(String[] args) throws InterruptedException{
 		Server server = new Server(12345);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		while(true){
+			Date date = new Date();
+			server.sendAll(new ChatMessage("Time",dateFormat.format(date)));
+			sleep(1000);
+		}
 	}
 
 }
