@@ -1,10 +1,11 @@
 package server;
 
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.BindException;
-
+import game.*;
 import message.*;
 
 
@@ -56,9 +57,10 @@ public class ClientThread extends Thread {
 					//e1.printStackTrace();
 				}
 			}
-			if(temp instanceof Introduction)				
+			if(temp instanceof Introduction){				
 					client.clientName = ((Introduction)temp).getSender();
-				else
+					client.server.game.addPlayer(new Player(((Introduction)temp).getSender()));
+			}else
 					client.server.handleMessage((Message) temp);
 			
 		}

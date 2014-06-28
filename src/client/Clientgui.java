@@ -4,19 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
 import server.Server;
-import message.Introduction;
-import message.Message;
-
+import message.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -156,7 +151,13 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
+
 		if(message instanceof Introduction)
 			sendMessage(new Introduction(gui.playerName));
+		
+		if(message instanceof SendHand)
+			;
+		
+
 	}
 }

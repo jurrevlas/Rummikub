@@ -26,7 +26,7 @@ public class Server extends Thread{
 	/** List of clients*/
 	private LinkedList<Client> clients;
 	/** The Game*/
-	private Game game;
+	protected Game game;
 	
 	
 	
