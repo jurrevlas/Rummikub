@@ -48,14 +48,18 @@ public class GameBoardRow extends JPanel{
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						s.add(new Tile(Color.Yellow, 3));
-						((JLabel)e.getSource()).getParent().repaint();
+						Component a = (Component)e.getSource();
+						while(a.getParent() != null){
+							a = a.getParent();
+							a.repaint();
+							a.validate();
+						}
 						super.mouseClicked(e);
 					}
 				});
 				this.add(j);
 			}
 		}
-		System.out.println("was here");
 		for(Component c : this.getComponents()){
 			c.repaint();
 		}
