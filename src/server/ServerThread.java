@@ -27,10 +27,8 @@ public class ServerThread extends Thread{
 	public void listen(){
 		while(!stopped){
 			try {
-				Socket soc = socket.accept();
-				
-				server.addClient(soc);
-				
+				Socket soc = socket.accept();				
+				server.addClient(soc);				
 				
 			} catch (IOException e) {				
 				e.printStackTrace();
