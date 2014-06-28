@@ -26,7 +26,7 @@ public class GameBoard extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	//Hashtable<String, ImageIcon> tiles = new Hashtable<String, ImageIcon>();
-	
+	GameBoardRow hand;
 	public GameBoard(){
 		/*
 		for(game.Color c : game.Color.values()){
@@ -42,16 +42,16 @@ public class GameBoard extends JPanel{
 		
 		//FlowLayout flow = new FlowLayout();
 		//JPanel lowerpanel = new JPanel(flow);
-		Set s1 = new Set();
+		//Set s1 = new Set();
 		//s1.add(new Tile(Color.Blue, 1));
 		//s1.add(new Tile(Color.Yellow, 5));
 		//s1.add(new Tile(Color.Black, 8));
-		GameBoardRow lowerpanel = new GameBoardRow(s1);
+		hand = new GameBoardRow(new Set());
 		//lowerpanel.add(new JLabel(tiles.get("Yel1")));
 		//lowerpanel.add(new JLabel(tiles.get("Blk2")));
 		//lowerpanel.add(new JLabel(tiles.get("Redj")));
 		
-		JScrollPane sp = new JScrollPane(lowerpanel,
+		JScrollPane sp = new JScrollPane(hand,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
@@ -104,5 +104,9 @@ public class GameBoard extends JPanel{
 		centerpanel.add(new GameBoardRow(s));
 		add(centerpanel, BorderLayout.CENTER);
 		
+	}
+	
+	public void setHand(Set s){
+		hand.s = s;
 	}
 }

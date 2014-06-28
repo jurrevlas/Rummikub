@@ -26,7 +26,7 @@ public class Clientgui {
 	private Chat pnlChat;
 	private Connection con;
 	private Server server;
-	
+	private GameBoard gameboard;
 	
 	/**
 	 * Launch the application.
@@ -85,8 +85,8 @@ public class Clientgui {
 		
 		//JPanel GamePanel = new JPanel();
 		//GamePanel.add(new GameBoard());
-		
-		splitPane.setLeftComponent(new GameBoard());
+		gameboard = new GameBoard();
+		splitPane.setLeftComponent(gameboard);
 		
 		JMenuBar mainMenu = new JMenuBar();
 		frame.setJMenuBar(mainMenu);
