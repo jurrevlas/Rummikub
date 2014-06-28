@@ -52,7 +52,7 @@ public class GameBoard extends JPanel{
 		//FlowLayout fl = new FlowLayout(FlowLayout.LEFT, 5, 10);
 		
 		JPanel centerpanel = new JPanel();
-		BoxLayout bl = new BoxLayout(centerpanel, BoxLayout.Y_AXIS);
+		new BoxLayout(centerpanel, BoxLayout.Y_AXIS);
 		
 		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT, 5, 5);
 		
@@ -89,7 +89,7 @@ public class GameBoard extends JPanel{
 		jp2.add(new JLabel(tiles.get("Blk2")));
 		jp2.add(new JLabel(tiles.get("Blk2")));
 		jp2.add(new JLabel(tiles.get("Blk2")));
-		
+
 		centerpanel.add(jp1);
 		centerpanel.add(jp2);
 		add(centerpanel, BorderLayout.CENTER);
