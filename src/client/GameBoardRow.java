@@ -41,10 +41,11 @@ public class GameBoardRow extends JPanel{
 	@Override
 	public void repaint() {
 		this.removeAll();
+		
 		if (s != null){
 			for(Tile t : this.s){
 				JLabel j = new JLabel(new ImageIcon("src/images/"+t.toString()+".png"));
-				j.addMouseListener(new MouseInputAdapter() {
+				/*j.addMouseListener(new MouseInputAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						s.add(new Tile(Color.Yellow, 3));
@@ -56,7 +57,7 @@ public class GameBoardRow extends JPanel{
 						}
 						super.mouseClicked(e);
 					}
-				});
+				});*/
 				this.add(j);
 			}
 		}

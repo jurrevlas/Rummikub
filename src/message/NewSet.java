@@ -11,7 +11,7 @@ public class NewSet extends Message{
 	private Tile tile;
 	
 	public NewSet(String sender, Tile tile) {
-		super(sender, MessageType.NewSet);
+		super(sender);
 		this.tile = tile;
 	}
 	

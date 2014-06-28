@@ -8,21 +8,18 @@ public class Message implements Serializable{
 	 */
 	private static final long serialVersionUID = -6596264275448655301L;
 	
-	private String sender;
-	private MessageType type;
+	private String sender;	
 	
-	public Message(String sender, MessageType type){
+	public Message(String sender){
 		this.sender = sender;
-		this.type = type;
+		
 	}
 	
 	public String getSender(){
 		return this.sender;
 	}
 	
-	public MessageType getType(){
-		return type;
-	}
+	
 
 	
 	
