@@ -44,6 +44,11 @@ public class Server extends Thread{
 		System.out.println(clients.size());
 	}
 	
+	public void removeClient(Client cli){
+		this.clients.remove(cli);
+		System.out.println("remove" + clients.size());
+	}
+	
 	public void sendAll(Message message){
 		for(Client cli : clients)
 			cli.sendMessage(message);
@@ -60,7 +65,6 @@ public class Server extends Thread{
 		
 		}
 	}
-	
 		
 	public static void main(String[] args) throws InterruptedException{
 		Server server = new Server(12345);

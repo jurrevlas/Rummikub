@@ -31,7 +31,7 @@ public class Client {
 		try {
 			out.writeObject(message);
 		} catch (IOException e) {			
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -42,6 +42,16 @@ public class Client {
 	@Override
 	public String toString(){
 		return clientName;
+	}
+	
+	public void disconnect(){
+		try {
+			this.out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.server.removeClient(this);
 	}
 	
 }
