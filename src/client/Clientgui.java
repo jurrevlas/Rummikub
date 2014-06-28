@@ -15,7 +15,6 @@ import javax.swing.JMenuItem;
 
 import server.Server;
 import message.Message;
-import message.MessageType;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
