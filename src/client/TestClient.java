@@ -36,7 +36,7 @@ public class TestClient {
 					else System.out.println(temp);
 			} catch (IOException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 		}
