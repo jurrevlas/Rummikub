@@ -6,7 +6,9 @@ public enum MessageType {
 	ServerMessage,
 	Introduction,
 	GameFull,
-	Move,
+	NewSet,
+	AddToSet,
+	MoveToSet
 	
 
 }
