@@ -8,9 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 
-import message.ChatMessage;
-import message.Message;
-import message.MessageType;
+import message.*;
+
+
 
 
 
@@ -37,10 +37,10 @@ public class Server extends Thread{
 	public  void addClient(Socket socket){
 		Client cli = new Client(socket,this);		
 		if(!game.isFull()){
-			cli.sendMessage(new Message("Server",MessageType.Introduction));
+			cli.sendMessage(new Introduction("Server"));
 			clients.add(cli);
 		}else
-			cli.sendMessage(new Message("Server",MessageType.GameFull));
+			cli.sendMessage(new GameFull("Server"));
 		System.out.println(clients.size());
 	}
 	
@@ -56,9 +56,7 @@ public class Server extends Thread{
 	}
 	
 	public void handleMessage(Message message){
-		switch(message.getType()){
 		
-		}
 	}
 	
 		

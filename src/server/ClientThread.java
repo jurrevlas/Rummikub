@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.BindException;
 
-import message.Message;
-import message.MessageType;
+import message.*;
+
 
 public class ClientThread extends Thread {
 	
@@ -45,9 +45,8 @@ public class ClientThread extends Thread {
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
-			if(temp instanceof Message)
-				if(((Message)temp).getType() == MessageType.Introduction)
-					client.clientName = ((Message)temp).getSender();
+			if(temp instanceof Introduction)				
+					client.clientName = ((Introduction)temp).getSender();
 				else
 					client.server.handleMessage((Message) temp);
 			

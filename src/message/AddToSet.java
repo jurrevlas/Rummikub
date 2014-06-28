@@ -15,7 +15,7 @@ public class AddToSet extends Message {
 	private Set to;
 	
 	public AddToSet(String sender, Tile tile, Set to) {
-		super(sender, MessageType.AddToSet);
+		super(sender);
 		this.tile = tile;
 		this.to = to;
 		

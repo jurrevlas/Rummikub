@@ -14,7 +14,7 @@ public class MoveToSet extends Message {
 	private Set to;
 
 	public MoveToSet(String sender, Tile tile, Set from, Set to) {
-		super(sender, MessageType.MoveToSet);
+		super(sender);
 		this.tile = tile;
 		this.from = from;
 		this.to = to;
