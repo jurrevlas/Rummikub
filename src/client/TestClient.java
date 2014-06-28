@@ -6,6 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import message.ChatMessage;
+
+import org.hamcrest.core.IsInstanceOf;
+
 public class TestClient {
 	public static void main(String[] args){
 		ObjectInputStream in = null;
@@ -24,9 +28,10 @@ public class TestClient {
 			
 			try {
 				if(in.available() <= 0)
-					System.out.println(in.readObject().toString());
-				else
-					System.out.print(".");
+					temp = in.readObject().toString();
+					if(temp instanceof ChatMessage)
+						System.out.println(((ChatMessage) temp).getSender() + " " + ((ChatMessage) temp).getMessage());
+					else System.out.println(temp);
 			} catch (IOException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
