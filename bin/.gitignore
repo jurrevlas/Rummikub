@@ -1,5 +1,15 @@
+<<<<<<< Upstream, based on origin/master
 /game/
 /message/
 /server/
 /unittest/
 /client/
+=======
+/client
+/game
+/images
+/message
+/server
+/unittest
+/.gitignore
+>>>>>>> 0915104 Server send MSG -add Exception Handling -add time every 1s
