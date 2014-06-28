@@ -21,7 +21,7 @@ public class TestClient {
 			out = new ObjectOutputStream(socket.getOutputStream());
 
 		} catch (IOException e) {			
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		Object temp = new Object();
 		while(true){

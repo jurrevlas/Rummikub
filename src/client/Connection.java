@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 
 import message.Message;
 
+
 public class Connection extends Thread{
 	
 	protected Socket socket;	

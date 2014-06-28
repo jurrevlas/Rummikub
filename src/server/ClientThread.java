@@ -22,7 +22,12 @@ public class ClientThread extends Thread {
 		} catch ( IOException e) {		
 			if(e instanceof EOFException){
 				System.out.println("Im off!");
-				this.close();
+				try {
+					this.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			else if(e instanceof BindException){
 				System.out.println("Allready running");
@@ -43,7 +48,13 @@ public class ClientThread extends Thread {
 			try {
 				temp = in.readObject();
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				try {
+					this.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			if(temp instanceof Introduction)				
 					client.clientName = ((Introduction)temp).getSender();
@@ -53,9 +64,12 @@ public class ClientThread extends Thread {
 		}
 	}
 	
-	public void close(){
+	public void close() throws IOException{
 		stopped = true;
 		this.interrupt();
+		this.in.close();
+		this.client.disconnect();
+		
 	}
 	
 

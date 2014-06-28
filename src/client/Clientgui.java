@@ -11,7 +11,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import server.Server;
+<<<<<<< HEAD
 import message.*;
+=======
+import message.Message;
+
+>>>>>>> e325b0e2f155b8f2a4f81c8b7e07a74a90700f02
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -151,9 +156,13 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
+<<<<<<< HEAD
 		if(message instanceof Introduction)
 			sendMessage(new Introduction(gui.playerName));
 			
 		
+=======
+
+>>>>>>> e325b0e2f155b8f2a4f81c8b7e07a74a90700f02
 	}
 }

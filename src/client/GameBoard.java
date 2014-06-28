@@ -43,9 +43,9 @@ public class GameBoard extends JPanel{
 		//FlowLayout flow = new FlowLayout();
 		//JPanel lowerpanel = new JPanel(flow);
 		Set s1 = new Set();
-		s1.add(new Tile(Color.Blue, 1));
-		s1.add(new Tile(Color.Yellow, 5));
-		s1.add(new Tile(Color.Black, 8));
+		//s1.add(new Tile(Color.Blue, 1));
+		//s1.add(new Tile(Color.Yellow, 5));
+		//s1.add(new Tile(Color.Black, 8));
 		GameBoardRow lowerpanel = new GameBoardRow(s1);
 		//lowerpanel.add(new JLabel(tiles.get("Yel1")));
 		//lowerpanel.add(new JLabel(tiles.get("Blk2")));
@@ -100,7 +100,7 @@ public class GameBoard extends JPanel{
 		});
 */
 		Set s = new Set();
-		s.add(new Tile(Color.Black, 1));
+		
 		centerpanel.add(new GameBoardRow(s));
 		add(centerpanel, BorderLayout.CENTER);
 		
