@@ -33,7 +33,7 @@ public class ServerThread extends Thread{
 				Socket soc = socket.accept();
 				System.out.println(soc);
 				server.addClient(soc);			
-				server.sendAll(new ChatMessage("Server", "Hi"));
+				server.sendAll(new ChatMessage("Server", "Hi Player: " + server.getPlayerCount()));
 				
 			} catch (IOException e) {				
 				e.printStackTrace();

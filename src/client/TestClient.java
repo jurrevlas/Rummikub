@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import message.ChatMessage;
+import message.*;
 
 import org.hamcrest.core.IsInstanceOf;
 
@@ -31,10 +31,12 @@ public class TestClient {
 					temp = in.readObject();
 					if(temp instanceof ChatMessage)
 						System.out.println(((ChatMessage) temp).getSender() + " " + ((ChatMessage) temp).getMessage());
+					else if(temp instanceof Introduction)
+						out.writeObject(new Introduction("test") );
 					else System.out.println(temp);
 			} catch (IOException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 		}

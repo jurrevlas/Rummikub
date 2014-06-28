@@ -14,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import server.Server;
+import message.Introduction;
 import message.Message;
 
 import java.awt.event.ActionListener;
@@ -133,7 +134,10 @@ public class Clientgui {
 
 	
 	public void sendMessage(Message message){
-		//TODO
+		if(gui.con != null)
+			gui.con.sendMessage(message);
+		//TODO else get angry
+			
 	}
 
 
@@ -141,8 +145,7 @@ public class Clientgui {
 	public boolean addConnection(String ip, int port){
 		try {
 			gui.con = new Connection(ip,port);
-			gui.con.start();
-			gui.con = new Connection(ip, port);
+			gui.con.start();			
 			return true;
 
 		} catch (IOException e) {
@@ -153,6 +156,7 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
-		
+		if(message instanceof Introduction)
+			sendMessage(new Introduction(gui.playerName));
 	}
 }

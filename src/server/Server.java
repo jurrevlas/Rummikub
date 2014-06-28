@@ -1,14 +1,17 @@
 package server;
 
+
+
 import game.Game;
 
 import java.net.Socket;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.LinkedList;
 
-import message.*;
+import message.ChatMessage;
+import message.GameFull;
+import message.Introduction;
+import message.Message;
 
 
 
@@ -66,12 +69,12 @@ public class Server extends Thread{
 		
 	public static void main(String[] args) throws InterruptedException{
 		Server server = new Server(12345);
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		while(true){
-			Date date = new Date();
-			server.sendAll(new ChatMessage("Time",dateFormat.format(date)));
 			sleep(1000);
 		}
 	}
-
+	
+	public int getPlayerCount(){
+		return clients.size();
+	}
 }
