@@ -8,7 +8,7 @@ public class ChatMessage extends Message {
 	private String message;
 	
 	public ChatMessage(String sender , String message) {
-		super(sender,MessageType.ChatMessage);
+		super(sender);
 		this.message = message;
 	}
 	
