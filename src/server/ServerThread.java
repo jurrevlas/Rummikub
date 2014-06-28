@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import message.ChatMessage;
+import message.Message;
+
 public class ServerThread extends Thread{
 	private ServerSocket socket;
 	private Server server;
@@ -27,8 +30,10 @@ public class ServerThread extends Thread{
 	public void listen(){
 		while(!stopped){
 			try {
-				Socket soc = socket.accept();				
-				server.addClient(soc);				
+				Socket soc = socket.accept();
+				System.out.println(soc);
+				server.addClient(soc);			
+				server.sendAll(new ChatMessage("Server", "Hi"));
 				
 			} catch (IOException e) {				
 				e.printStackTrace();
