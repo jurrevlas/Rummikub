@@ -1,5 +1,7 @@
-/client/
-/game/
-/message/
-/server/
-/unittest/
+/client
+/game
+/images
+/message
+/server
+/unittest
+/.gitignore
