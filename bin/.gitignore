@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /client
 /game
 /images
@@ -5,3 +6,10 @@
 /server
 /unittest
 /.gitignore
+=======
+/game/
+/message/
+/server/
+/unittest/
+/client/
+>>>>>>> branch 'master' of https://github.com/KaNe23/Rummikub
