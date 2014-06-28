@@ -14,7 +14,8 @@ public class SendHand extends Message{
 	private Set set;
 	
 	public SendHand(String sender, Set hand) {
-		super(sender);	
+		super(sender);
+		set = hand;
 	}
 	
 	public Set getHand(){
