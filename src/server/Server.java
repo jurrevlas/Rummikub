@@ -56,7 +56,7 @@ public class Server extends Thread{
 	}
 	
 	public void handleMessage(Message message){
-		switch(message.getType()){					
+		switch(message.getType()){
 		
 		}
 	}
