@@ -153,10 +153,6 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
-		switch(message.getType()){
-			case Introduction: gui.con.sendMessage(new Message(gui.playerName,MessageType.Introduction)); break;
-			default : break;
-			
-		}
+
 	}
 }

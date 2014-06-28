@@ -76,6 +76,18 @@ public class Chat extends JPanel {
 		gbc_btnSend.gridx = 1;
 		gbc_btnSend.gridy = 1;
 		add(btnSend, gbc_btnSend);
+		
+		JButton btnStart = new JButton("Start!");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		GridBagConstraints gbc_btnStart = new GridBagConstraints();
+		gbc_btnStart.gridx = 0;
+		gbc_btnStart.gridy = 2;
+		gbc_btnStart.fill = 1;
+		add(btnStart, gbc_btnStart);
 
 	}
 	public void sendMessage(){
