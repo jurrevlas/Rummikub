@@ -63,7 +63,13 @@ public class GameBoardRow extends JPanel{
 		}
 		for(Component c : this.getComponents()){
 			c.repaint();
+			c.validate();
 		}
-		super.repaint();
+		Component a = this;
+		while(a.getParent() != null){
+			a = a.getParent();
+			a.repaint();
+			a.validate();
+		}
 	}
 }

@@ -1,5 +1,9 @@
 package client;
 
+import game.Color;
+import game.Set;
+import game.Tile;
+
 import javax.swing.JPanel;
 
 import java.awt.GridBagLayout;
@@ -15,6 +19,7 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 
 import message.ChatMessage;
+import message.SendHand;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -78,9 +83,11 @@ public class Chat extends JPanel {
 		add(btnSend, gbc_btnSend);
 		
 		JButton btnStart = new JButton("Start!");
-		btnSend.addActionListener(new ActionListener() {
+		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Set s = new Set();
+				s.add(new Tile(Color.Black, 1));
+				client.handleMessage(new SendHand("Woot", s));
 			}
 		});
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();

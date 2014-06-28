@@ -108,5 +108,6 @@ public class GameBoard extends JPanel{
 	
 	public void setHand(Set s){
 		hand.s = s;
+		hand.repaint();
 	}
 }
