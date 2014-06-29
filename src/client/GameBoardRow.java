@@ -4,11 +4,15 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import game.Color;
 import game.Set;
 import game.Tile;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,6 +28,30 @@ public class GameBoardRow extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("clicked on the gameboardrow");
+				GameTile gt = GameBoard.getInstance().gametile;
+				if(gt != null){
+					gt.getTile().deSelet();
+					s.add(gt.getTile());
+					((GameBoardRow)gt.getParent()).s.remove(gt.getTile());
+					if(GameBoard.getInstance().hand != ((GameBoardRow)GameBoard.getInstance().gametile.getParent())){
+						((GameBoardRow)GameBoard.getInstance().gametile.getParent()).getParent().remove(((GameBoardRow)GameBoard.getInstance().gametile.getParent()));
+					}
+					GameBoard.getInstance().gametile = null;
+					Component a = gt;
+					while(a.getParent() != null){
+						a = a.getParent();
+						a.repaint();
+						a.validate();
+					}
+					a = GameBoard.getInstance().hand;
+					while(a.getParent() != null){
+						a.repaint();
+						a.validate();
+						a = a.getParent();
+						a.repaint();
+						a.validate();
+					}
+				}
 				super.mouseClicked(e);
 			}
 		});
@@ -34,7 +62,26 @@ public class GameBoardRow extends JPanel{
 	private void addTiles(){
 		if (s != null){
 			for(Tile t : s){
-				GameTile j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
+				GameTile j = null;
+				if (t.isSelected()){
+					try {
+						BufferedImage bimg = ImageIO.read(new File("src/images/"+t.toString()+".png"));
+						for (int x = 0; x < bimg.getWidth(); x++) {
+				            for (int y = 0; y < bimg.getHeight(); y++) {
+				                int rgba = bimg.getRGB(x, y);
+				                java.awt.Color col = new java.awt.Color(rgba, true);
+				                col = new java.awt.Color(255 - col.getRed(),255 - col.getGreen(),255 - col.getBlue());
+				                bimg.setRGB(x, y, col.getRGB());
+				            }
+				        }
+						j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
+						j.setIcon(new ImageIcon(bimg));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}else{
+					j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
+				}
 				this.add(j);
 			}
 		}

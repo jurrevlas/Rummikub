@@ -26,11 +26,22 @@ import javax.swing.event.MouseInputAdapter;
 
 public class GameBoard extends JPanel{
 	private static final long serialVersionUID = 1L;
+	private static GameBoard gameboard = null;
 	//Hashtable<String, ImageIcon> tiles = new Hashtable<String, ImageIcon>();
 	GameBoardRow hand;
-	Object selection[];
+	GameTile gametile;
 	JPanel centerpanel;
-	public GameBoard(){
+	
+	public static GameBoard getInstance(){
+		if (gameboard == null){
+			GameBoard.gameboard = new GameBoard();
+			return gameboard;
+		}else{
+			return gameboard;
+		}
+	}
+	
+	private GameBoard(){
 		/*
 		for(game.Color c : game.Color.values()){
 			for(int i = 1; i<=13; i++){
@@ -61,15 +72,32 @@ public class GameBoard extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(e.getSource());
+				
+				if (gametile != null){
+					gametile.getTile().deSelet();
+					Set s = new Set();
+					s.add(gametile.getTile());
+					centerpanel.add(new GameBoardRow(s));
+					((GameBoardRow)gametile.getParent()).s.remove(gametile.getTile());
+					Component a = gametile;
+					while(a.getParent() != null){
+						a = a.getParent();
+						a.repaint();
+						a.validate();
+					}
+					gametile = null;
+				}
+				
+				/*
 				Set s = new Set();
 				s.add(new Tile(Color.Yellow, 12));
 				centerpanel.add(new GameBoardRow(s));
-				Component a = (Component)e.getSource();
-				while(a.getParent() != null){
-					a = a.getParent();
-					a.repaint();
-					a.validate();
-				}
+				*/
+				
+				
+				
+				Clientgui.getInstance().frame.repaint();
+				Clientgui.getInstance().frame.validate();
 				super.mouseClicked(e);
 			}
 		});

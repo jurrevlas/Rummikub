@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -27,22 +28,52 @@ public class GameTile extends JLabel{
 	public GameTile(ImageIcon i, Tile tile){
 		super(i);
 		setTile(tile);
-		System.out.println("Tile: "+t);
 		addMouseListener(new MouseInputAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GameTile gt = (GameTile)e.getSource();
-				if (gt.getTile().isSelected()){
+				if(GameBoard.getInstance().gametile != null && GameBoard.getInstance().gametile != gt){
+					GameBoard.getInstance().gametile.getTile().deSelet();
+					((GameBoardRow)GameBoard.getInstance().gametile.getParent()).s.remove(GameBoard.getInstance().gametile.getTile());
+					if(GameBoard.getInstance().hand != ((GameBoardRow)GameBoard.getInstance().gametile.getParent())){
+						((GameBoardRow)GameBoard.getInstance().gametile.getParent()).getParent().remove(((GameBoardRow)GameBoard.getInstance().gametile.getParent()));
+					}
+					((GameBoardRow)gt.getParent()).s.add(GameBoard.getInstance().gametile.getTile());
+					GameBoard.getInstance().gametile = null;
+					//repaint
+					Component a = gt;
+					while(a.getParent() != null){
+						a = a.getParent();
+						a.repaint();
+						a.validate();
+					}
+					a = GameBoard.getInstance().hand;
+					while(a.getParent() != null){
+						a.repaint();
+						a.validate();
+						a = a.getParent();
+						a.repaint();
+						a.validate();
+					}
+					//repaint
+					return;
+				}
+				if (gt.getTile().isSelected() && GameBoard.getInstance().gametile == gt){
 					gt.getTile().deSelet();
 					gt.setIcon(new ImageIcon("src/images/"+gt.getTile().toString()+".png"));
 					System.out.println("GT: "+gt.getTile()+" "+gt.getTile().isSelected());
+					GameBoard.getInstance().gametile = null;
 				}else{
+					if (GameBoard.getInstance().gametile != null){
+						return;
+					}
 					Set set = ((GameBoardRow)gt.getParent()).s;
 					boolean oneSelected = false;
 					for (Tile t : set){
 						if (t.isSelected()){
 							oneSelected = true;
 						}
+						GameBoard.getInstance().gametile = null;
 					}
 					if (!oneSelected){
 						gt.getTile().select();
@@ -61,8 +92,7 @@ public class GameTile extends JLabel{
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						//Object[] obja = {gt, gt.getParent()};
-						//((GameBoard)gt.getParent().getParent()).selection = obja;
+						GameBoard.getInstance().gametile = gt;
 						//LOL image stuff ends here
 					}
 					System.out.println("GT: "+gt.getTile()+" "+gt.getTile().isSelected());

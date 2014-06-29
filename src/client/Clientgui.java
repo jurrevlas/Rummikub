@@ -12,6 +12,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.RepaintManager;
 
 import server.Server;
 import message.*;
@@ -23,7 +24,7 @@ import java.io.IOException;
 
 public class Clientgui {
 
-	private static Clientgui gui;
+	private static Clientgui gui = new Clientgui();
 	
 	public JFrame frame;
 	protected String playerName;
@@ -36,7 +37,7 @@ public class Clientgui {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Clientgui window = Clientgui.getInstance();
@@ -45,14 +46,20 @@ public class Clientgui {
 					e.printStackTrace();
 				}
 			}
-		});
+		})*/;
+		Clientgui.getInstance();
 	}
 	
-	
 
+	public void repaint(){
+		
+	}
+	
 	public static Clientgui getInstance(){
-		if(gui == null)
-			return  gui= new Clientgui();
+		if(gui == null){
+			gui = new Clientgui();
+			return  gui;
+		}
 		else
 			return gui;
 	}
@@ -92,7 +99,7 @@ public class Clientgui {
 		
 		//JPanel GamePanel = new JPanel();
 		//GamePanel.add(new GameBoard());
-		gameboard = new GameBoard();
+		gameboard = GameBoard.getInstance();
 		splitPane.setLeftComponent(gameboard);
 		
 		JMenuBar mainMenu = new JMenuBar();
@@ -132,6 +139,7 @@ public class Clientgui {
 		
 		Game.add(createGame);
 		Game.add(quitGame);
+		frame.setVisible(true);
 	}
 
 	
