@@ -143,6 +143,10 @@ public class Game extends Observable{
 			}
 		}
 		
+		if(move instanceof EndTurn){
+			
+		}
+		
 		
 		
 		

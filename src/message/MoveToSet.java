@@ -3,7 +3,7 @@ package message;
 import game.Set;
 import game.Tile;
 
-public class MoveToSet extends Message {
+public class MoveToSet extends GameMessage {
 
 	/**
 	 * 
