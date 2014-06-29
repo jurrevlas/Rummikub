@@ -1,7 +1,9 @@
 package game;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
+
 import server.Server;
 import message.*;
 
@@ -38,11 +40,11 @@ public class Game extends Observable{
 	}
 	
 	public void removePlayer(Player player){
-		for(Player p: players){
-			if(p.getName() == player.getName()){
-				System.out.println("Premove: " + p.getName());
-				players.remove(p);
-			}
+		for(Iterator<Player> iter = players.iterator(); iter.hasNext();) {
+			Player p = iter.next();
+		    if (p.getName() == player.getName()) {
+		        iter.remove();
+		    }
 		}
 	}
 	
