@@ -155,7 +155,7 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
-
+		
 		if(message instanceof Introduction)
 			sendMessage(new Introduction(gui.playerName));
 

@@ -2,7 +2,7 @@ package message;
 
 import game.Set;
 
-public class SendHand extends Message{
+public class SendHand extends GameMessage{
 
 	
 

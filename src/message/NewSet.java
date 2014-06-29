@@ -2,7 +2,7 @@ package message;
 
 import game.Tile;
 
-public class NewSet extends Message{
+public class NewSet extends GameMessage{
 	
 	/**
 	 * 
