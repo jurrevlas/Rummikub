@@ -18,6 +18,7 @@ public class AddToSet extends GameMessage {
 		super(sender);
 		this.tile = tile;
 		this.to = to;
+		message = sender+" adds to Set: " +to.toString() +" the tile "+tile.toString();
 		
 	}
 	
