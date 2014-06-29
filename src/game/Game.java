@@ -111,15 +111,20 @@ public class Game extends Observable{
 		}		
 		
 		if(move instanceof NewSet){
+			System.out.println("New Set");
 			NewSet temp = (NewSet)(move);
+			System.out.println("Game: "+started+" "+temp.getSender().equals( players.get(currTurn).getName())+" "+players.get(currTurn).contains(temp.getTile()));
 			if(	!started || 
-				!temp.getSender().equals( players.get(currTurn) ) ||
-				!players.get(currTurn).contains(temp.getTile()))
-			{				
-					server.send(move.getSender(), new WrongTurn());			
+				!temp.getSender().equals( players.get(currTurn).getName() ) //||
+				//!players.get(currTurn).contains(temp.getTile()))
+				)
+			{
+				System.out.println("Wrong move");
+				server.send(move.getSender(), new WrongTurn());			
 			}else{
 				table.newSet(temp.getTile());
 				players.get(currTurn).remove(temp.getTile());
+				System.out.println("Valid move");
 				server.sendAll(move);
 			}
 		}		

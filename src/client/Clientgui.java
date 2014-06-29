@@ -181,17 +181,48 @@ public class Clientgui {
 		}
 		
 		if(message instanceof NewSet){
+			System.out.println("Client/Message/NewSet");
 			Tile t = ((NewSet)message).getTile();
+			t.deSelet();
 			Set s = new Set();
 			s.add(t);
-			if(message.getSender() == playerName){
+			if(message.getSender().equals(playerName)){
+				gameboard.gametile = null;
 				gameboard.hand.s.remove(t);
 				gameboard.hand.invalidate();
+				gameboard.hand.validate();
+				gameboard.hand.repaint();
 			}
 			GameBoardRow gbr = new GameBoardRow(s);
 			gameboard.centerpanel.add(gbr);
 			gameboard.centerpanel.invalidate();
 			frame.validate();
+		}
+		
+		if(message instanceof AddToSet){
+			System.out.println("Client/Message/AddToSet");
+			AddToSet ats = (AddToSet)message;
+			Tile t = ats.getTile();
+			t.deSelet();
+			if(ats.getSender().equals(playerName)){
+				gameboard.gametile = null;
+				gameboard.hand.s.remove(t);
+				gameboard.hand.invalidate();
+				gameboard.hand.validate();
+				gameboard.hand.repaint();
+			}
+			for(Component c : gameboard.centerpanel.getComponents()){
+				if(c instanceof GameBoardRow){
+					GameBoardRow gbr = (GameBoardRow)c;
+					if (gbr.s.equals(ats.getDestination())){
+						gbr.s.add(t);
+						gbr.invalidate();
+					}
+				}
+			}
+			gameboard.invalidate();
+			gameboard.validate();
+			gameboard.repaint();
 		}
 		
 		if(message instanceof ChatMessage){

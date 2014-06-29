@@ -28,35 +28,36 @@ public class GameBoardRow extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("clicked on the gameboardrow");
-				GameTile gt = GameBoard.getInstance().gametile;
-				GameBoardRow bgt = (GameBoardRow)gt.getParent();
-				if(gt != null){
-					gt.getTile().deSelet();
-					s.add(gt.getTile());
-					bgt.s.remove(gt.getTile());
-					if(GameBoard.getInstance().hand != bgt && bgt.s.isEmpty()){
-						bgt.getParent().remove(bgt);
-					}
-					GameBoard.getInstance().gametile = null;
-					gt.invalidate();
-					bgt.invalidate();
-					/*
-					Component a = gt;
-					while(a.getParent() != null){
-						a = a.getParent();
-						a.repaint();
-						a.validate();
-					}
-					a = GameBoard.getInstance().hand;
-					while(a.getParent() != null){
-						a.repaint();
-						a.validate();
-						a = a.getParent();
-						a.repaint();
-						a.validate();
-					}*/
-					Clientgui.getInstance().repaint();
-				}
+//				
+//				GameTile gt = GameBoard.getInstance().gametile;
+//				GameBoardRow bgt = (GameBoardRow)gt.getParent();
+//				if(gt != null){
+//					gt.getTile().deSelet();
+//					s.add(gt.getTile());
+//					bgt.s.remove(gt.getTile());
+//					if(GameBoard.getInstance().hand != bgt && bgt.s.isEmpty()){
+//						bgt.getParent().remove(bgt);
+//					}
+//					GameBoard.getInstance().gametile = null;
+//					gt.invalidate();
+//					bgt.invalidate();
+//					/*
+//					Component a = gt;
+//					while(a.getParent() != null){
+//						a = a.getParent();
+//						a.repaint();
+//						a.validate();
+//					}
+//					a = GameBoard.getInstance().hand;
+//					while(a.getParent() != null){
+//						a.repaint();
+//						a.validate();
+//						a = a.getParent();
+//						a.repaint();
+//						a.validate();
+//					}*/
+//					Clientgui.getInstance().repaint();
+//				}
 				super.mouseClicked(e);
 			}
 		});
@@ -96,12 +97,12 @@ public class GameBoardRow extends JPanel{
 	public void repaint() {
 		this.removeAll();
 		this.addTiles();
-		/*
+		
 		Component a = this;
 		while(a.getParent() != null){
 			a = a.getParent();
 			a.repaint();
 			a.validate();
-		}*/
+		}
 	}
 }
