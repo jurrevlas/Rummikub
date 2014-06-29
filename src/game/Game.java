@@ -151,7 +151,7 @@ public class Game extends Observable{
 					!table.removeFromSet(temp.getSource(), temp.getTile())){
 				server.send(move.getSender(), new WrongTurn());
 			}else{
-				server.sendAll(new NewSet(move.getSender(),table.newSet(temp.getTile())));
+				server.sendAll(new MoveToNewSet(move.getSender(),temp.getTile(),temp.getSource(),table.newSet(temp.getTile())));
 				recently.add(temp.getTile());
 			}
 		}
