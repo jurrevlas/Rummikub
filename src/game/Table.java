@@ -40,7 +40,10 @@ public class Table extends LinkedList<Set>{
 	}
 	
 	public boolean removeFromSet(Set set, Tile tile){
-		return get(indexOf(set)).remove(tile);
+		boolean success =get(indexOf(set)).remove(tile);
+		if(success && set.size() == 0)
+			remove(set);
+		return  success;
 	}
 			
 	public boolean isValid(){

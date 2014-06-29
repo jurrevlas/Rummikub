@@ -106,8 +106,7 @@ public class Game extends Observable{
 	
 	public void handleGameMessage(Message move){
 		System.out.println("there was a game message");
-		if(move instanceof StartGame){
-			System.out.println("Game/handleMessage/StartGame");
+		if(move instanceof StartGame){			
 			if(startGame())
 				server.sendAll(new StartGame("Server"));
 			else
