@@ -120,6 +120,7 @@ public class Game extends Observable{
 			}else{
 				table.newSet(temp.getTile());
 				players.get(currTurn).remove(temp.getTile());
+				server.sendAll(move);
 			}
 		}		
 		
