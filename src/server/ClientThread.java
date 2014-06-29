@@ -23,7 +23,7 @@ public class ClientThread extends Thread {
 			in = new ObjectInputStream(client.socket.getInputStream());
 		} catch ( IOException e) {		
 			if(e instanceof EOFException){
-				System.out.println("Im off!");
+				//System.out.println("Im off!");
 				try {
 					this.close();
 				} catch (IOException e1) {
@@ -32,7 +32,7 @@ public class ClientThread extends Thread {
 				}
 			}
 			else if(e instanceof BindException){
-				System.out.println("Allready running");
+				//System.out.println("Allready running");
 			}
 			else 
 				e.printStackTrace();

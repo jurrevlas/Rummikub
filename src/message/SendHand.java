@@ -11,16 +11,16 @@ public class SendHand extends GameMessage{
 	 */
 	private static final long serialVersionUID = -8159778088249068264L;
 	
-	private Set set;
+	private Set hand;
 	
 	public SendHand(String sender, Set hand) {
 		super(sender);
-		set = hand;
-		message = "Your hand is: " +set.toString();
+		this.hand = hand;
+		message = "Your hand is: " +this.getHand().toString();
 	}
 	
 	public Set getHand(){
-		return set;
+		return hand;
 	}
 
 }

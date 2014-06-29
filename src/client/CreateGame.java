@@ -127,6 +127,7 @@ public class CreateGame extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						Server server = new Server(Integer.decode(tfPort.getText()));
 						server.start();
 						gui.playerName = tfPlayerName.getText();

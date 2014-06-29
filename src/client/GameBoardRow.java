@@ -106,8 +106,10 @@ public class GameBoardRow extends JPanel{
 				gt++;
 			}
 		}
-		
+		//System.out.println("------------------------------------------------");
+		//System.out.println("S: "+s+" gt:"+gt+" s.s"+s);
 		if(s!= null && gt != s.size()){
+			//System.out.println("Remove all and redo");
 			removeAll();
 			for(Tile t : s){
 				add(new GameTile(t));
@@ -119,6 +121,7 @@ public class GameBoardRow extends JPanel{
 			c.validate();
 			c.repaint();
 		}
+		//System.out.println("------------------------------------------------");
 		Component a = this;
 		while(a.getParent() != null){
 			a = a.getParent();

@@ -70,16 +70,17 @@ public class Game extends Observable{
 	//game methods
 	
 	public boolean startGame(){
-		System.out.println("WOOT");
+		//System.out.println("WOOT");
 		//only starts once
 		if(!started && players.size()>=2){
 			
-			System.out.println("we doint it");
+			//System.out.println("we doint it");
 			//give each player his hand
 			for(Player p : players){
 				for(int i = 0; i < 14; i++){
 					p.add(table.popFromStack());
 				}
+				//System.out.println("Server P!"+p);
 				server.send(p.getName(), new SendHand("Server",p));
 			}
 			
@@ -104,7 +105,7 @@ public class Game extends Observable{
 	}
 	
 	public synchronized void  handleGameMessage(Message move){
-		System.out.println("there was a game message");
+		//System.out.println("there was a game message");
 		if(move instanceof StartGame){
 			
 			if(startGame()){
@@ -168,7 +169,7 @@ public class Game extends Observable{
 				server.sendAll(move);
 				recently.add(temp.getTile());
 			}
-			System.out.println(table.toString());
+			//System.out.println(table.toString());
 		}
 		
 		if(move instanceof MoveToHand){
@@ -196,18 +197,26 @@ public class Game extends Observable{
 				if(-1 == status){
 					server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
 					server.sendAll( new SendTable("Server",table));
-					players.get((currTurn-1)%players.size()).add(table.popFromStack());
-					server.send(players.get((currTurn-1)%players.size()).getName(),
-								new SendHand("Server",players.get((currTurn-1)%players.size())));
-					server.send(players.get(currTurn).getName(), new YourTurn());
+					players.get((currTurn)%players.size()).add(table.popFromStack());
+					server.send(players.get((currTurn)%players.size()).getName(),
+								new SendHand("Server",players.get((currTurn)%players.size())));
 				}else if(0 == status){
 					server.sendAll(new GameWon("Server",players.get(currTurn)));
 				}else{
-					if(recently.size() == 0)
-						players.get((currTurn-1)%players.size()).add(table.popFromStack());
-					server.send(players.get(currTurn).getName(), new YourTurn());
+					if(recently.size() == 0){
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+						System.out.println(players.get(currTurn));
+						players.get(currTurn).add(table.popFromStack());
+						System.out.println(players.get(currTurn));
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+						//System.out.println("SERVER: "+players.get(currTurn));
+						server.send(players.get(currTurn).getName(),
+							new SendHand("Server",players.get(currTurn)));
+					}
 				}
-					recently.clear();
+				recently.clear();
+				currTurn = (currTurn +1) % players.size();
+				server.send(players.get(currTurn).getName(), new YourTurn());
 			}
 		}
 		
@@ -224,13 +233,11 @@ public class Game extends Observable{
 	public int endTurn(){
 		if(!table.isValid()){
 			restoreBackUp();
-			currTurn = (currTurn +1) % players.size();
 			return -1;
 		}else if(players.get(currTurn).size() == 0){
 			won = true;
 			return 0;
 		}else{			
-			currTurn = (currTurn +1) % players.size();
 			backUp();
 			return 1;
 		}

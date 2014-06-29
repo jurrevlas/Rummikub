@@ -8,10 +8,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -176,18 +179,26 @@ public class Clientgui {
 			sendMessage(new Introduction(gui.playerName));
 
 		if(message instanceof SendHand){
-			System.out.println("Client/SendHand/");
+			//System.out.println("Client/SendHand/"+((SendHand) message).getHand());
+			System.out.println("-------------------------");
+			System.out.println(((SendHand) message).getHand());
+			System.out.println(((SendHand) message).getHand().toString());
+			System.out.println(((SendHand) message).getMessage());
+			System.out.println("-------------------------");
 			gameboard.setHand(((SendHand) message).getHand());
+			gameboard.invalidate();
+			gameboard.hand.invalidate();
 			frame.validate();
+			gui.pnlChat.printMessage(message.getSender(),message.getMessage());
 		}
 		
 		if(message instanceof NewSet){
-			System.out.println("Client/Message/NewSet");
+			//System.out.println("Client/Message/NewSet");
 			Set s = ((NewSet)message).getSet();
-			System.out.println(message.getSender()+" "+playerName);
+			//System.out.println(message.getSender()+" "+playerName);
 			if(message.getSender().equals(playerName)){
 				gameboard.gametile = null;
-				System.out.println("Remove:"+gameboard.hand.s.remove(s.getFirst()));
+				//System.out.println("Remove:"+gameboard.hand.s.remove(s.getFirst()));
 				gameboard.hand.invalidate();
 				gameboard.hand.validate();
 				gameboard.hand.repaint();
@@ -196,10 +207,11 @@ public class Clientgui {
 			gameboard.centerpanel.add(gbr);
 			gameboard.centerpanel.invalidate();
 			frame.validate();
+			gui.pnlChat.printMessage(message.getSender(),message.getMessage());
 		}
 		
 		if(message instanceof AddToSet){
-			System.out.println("Client/Message/AddToSet");
+			//System.out.println("Client/Message/AddToSet");
 			AddToSet ats = (AddToSet)message;
 			Tile t = ats.getTile();
 			if(ats.getSender().equals(playerName)){
@@ -230,23 +242,110 @@ public class Clientgui {
 			gameboard.invalidate();
 			frame.validate();
 			frame.repaint();
-			gui.pnlChat.printMessage(message.getSender(),ats.getDestination().toString());
+			gui.pnlChat.printMessage(message.getSender(),message.getMessage());
 		}
 		
 		if(message instanceof MoveToSet){
 			MoveToSet mts = (MoveToSet)message;
+			gameboard.gametile = null;
 			for(Component c : gameboard.centerpanel.getComponents()){
 				if(c instanceof GameBoardRow){
 					GameBoardRow gbr = (GameBoardRow)c;
 					if (gbr.s.equals(mts.getDestination())){
 						gbr.s.add(mts.getTile());
 						gbr.invalidate();
+						Component a = gbr;
+						while(a.getParent() != null){
+							a.repaint();
+							a.validate();
+							a = a.getParent();
+							a.repaint();
+							a.validate();
+						}
 					}
 					if (gbr.s.equals(mts.getSource())){
 						gbr.s.remove(mts.getTile());
+						if(gbr.s.isEmpty()){
+							gbr.getParent().remove(gbr);
+						}
 						gbr.invalidate();
+						Component a = gbr;
+						while(a.getParent() != null){
+							a.repaint();
+							a.validate();
+							a = a.getParent();
+							a.repaint();
+							a.validate();
+						}
 					}
 				}
+			}
+			gameboard.centerpanel.invalidate();
+			gameboard.invalidate();
+			frame.validate();
+			frame.repaint();
+			gui.pnlChat.printMessage(message.getSender(),message.getMessage());
+		}
+		
+		if(message instanceof MoveToNewSet){
+			MoveToNewSet mtns = (MoveToNewSet)message;
+			gameboard.gametile = null;
+			for(Component c : gameboard.centerpanel.getComponents()){
+				if(c instanceof GameBoardRow){
+					GameBoardRow gbr = (GameBoardRow)c;
+					if (gbr.s.equals(mtns.getSource())){
+						gbr.s.remove(mtns.getTile());
+						if(gbr.s.isEmpty()){
+							gbr.getParent().remove(gbr);
+						}
+						gbr.invalidate();
+						Component a = gbr;
+						while(a.getParent() != null){
+							a.repaint();
+							a.validate();
+							a = a.getParent();
+							a.repaint();
+							a.validate();
+						}
+					}
+				}
+			}
+			GameBoardRow gbr = new GameBoardRow(mtns.getDestination(),false);
+			gameboard.centerpanel.add(gbr);
+			gameboard.centerpanel.invalidate();
+			gameboard.invalidate();
+			frame.validate();
+			frame.repaint();
+		}
+		
+		if(message instanceof MoveToHand){
+			MoveToHand mth = (MoveToHand)message;
+			gameboard.gametile = null;
+			for(Component c : gameboard.centerpanel.getComponents()){
+				if(c instanceof GameBoardRow){
+					GameBoardRow gbr = (GameBoardRow)c;
+					if (gbr.s.equals(mth.getSource())){
+						gbr.s.remove(mth.getTile());
+						if(gbr.s.isEmpty()){
+							gbr.getParent().remove(gbr);
+						}
+						gbr.invalidate();
+						Component a = gbr;
+						while(a.getParent() != null){
+							a.repaint();
+							a.validate();
+							a = a.getParent();
+							a.repaint();
+							a.validate();
+						}
+					}
+				}
+			}
+			if(message.getSender().equals(playerName)){
+				gameboard.hand.s.add(mth.getTile());
+				gameboard.hand.invalidate();
+				gameboard.hand.validate();
+				gameboard.hand.repaint();
 			}
 			gameboard.centerpanel.invalidate();
 			gameboard.invalidate();
@@ -255,7 +354,27 @@ public class Clientgui {
 		}
 		
 		if(message instanceof YourTurn){
-			gui.pnlChat.printMessage(message.getSender(),"It's your turn.");
+			gui.pnlChat.printMessage(message.getSender(),message.getMessage());
+			gui.pnlChat.getStartButton().setEnabled(true);
+			//System.out.println("MY TURN");
+		}
+		
+		if(message instanceof StartGame){
+			gui.pnlChat.getStartButton().setText("End Turn");
+			gui.pnlChat.getStartButton().setEnabled(false);
+			//System.out.println("STARTORO");
+		}
+		
+		if(message instanceof SendTable){
+			SendTable st = (SendTable)message;
+			gameboard.remove(gameboard.centerpanel);
+			gameboard.centerpanel = new JPanel();
+			gameboard.centerpanel.setBackground(java.awt.Color.darkGray);
+			new BoxLayout(gameboard.centerpanel, BoxLayout.Y_AXIS);
+			gameboard.add(gameboard.centerpanel, BorderLayout.CENTER);
+			for(Set s : st.getTable()){
+				gameboard.centerpanel.add(new GameBoardRow(s, false));
+			}
 		}
 		
 		if(message instanceof ChatMessage){

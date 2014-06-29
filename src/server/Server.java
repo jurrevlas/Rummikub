@@ -25,7 +25,7 @@ public class Server extends Thread{
 		
 		clients = new LinkedList<Client>();
 		game = new Game(this);
-		System.out.println("Server started on port... "+port);
+		//System.out.println("Server started on port... "+port);
 		serverSocket = new ServerThread(port,this);	
 		serverSocket.start();
 	}
@@ -37,16 +37,16 @@ public class Server extends Thread{
 			clients.add(cli);
 		}else
 			cli.sendMessage(new GameFull("Server"));
-		System.out.println(clients.size());
-		System.out.println(game.getPlayers().size());
+		//System.out.println(clients.size());
+		//System.out.println(game.getPlayers().size());
 	}
 	
 	public void removeClient(Client cli){
-		System.out.println("rm client: " + cli.getPlayer().toString());
-		System.out.println("rm player: " + clients.getLast().getPlayer().toString());
+		//System.out.println("rm client: " + cli.getPlayer().toString());
+		//System.out.println("rm player: " + clients.getLast().getPlayer().toString());
 		game.removePlayer(cli.getPlayer());
 		this.clients.remove(cli);
-		System.out.println("[rP]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
+		//System.out.println("[rP]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
 	}
 	
 	public void sendAll(Message message){
@@ -61,22 +61,22 @@ public class Server extends Thread{
 	}
 	
 	public void handleMessage(Client c, Message message){
-		System.out.println("Server/handleMessage/"+message+" "+message.getClass());
+		//System.out.println("Server/handleMessage/"+message+" "+message.getClass());
 		if(message instanceof Introduction){
 			Player player = new Player(message.getSender());
 			c.setPlayer(player);
-			System.out.println("add Player");
+			//System.out.println("add Player");
 			this.game.addPlayer(player);
 		}
 		if(message instanceof ChatMessage){
 			sendAll(message);
 		}
 		if(message instanceof GameMessage){
-			System.out.println("server/handleMessage/GameMessage"+message.getSender());
+			//System.out.println("server/handleMessage/GameMessage"+message.getSender());
 			game.handleGameMessage(message);
 		}
 		
-		System.out.println("[hM]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
+		//System.out.println("[hM]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
 	}
 			
 	public static void main(String[] args) throws InterruptedException{

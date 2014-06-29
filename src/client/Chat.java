@@ -19,6 +19,7 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 
 import message.ChatMessage;
+import message.EndTurn;
 import message.SendHand;
 import message.StartGame;
 
@@ -31,7 +32,7 @@ public class Chat extends JPanel {
 	private JTextField tfInput;
 	private JTextArea taOutput;
 	private Clientgui client;
-
+	private JButton btnStart;
 	/**
 	 * Create the panel.
 	 */
@@ -83,17 +84,16 @@ public class Chat extends JPanel {
 		gbc_btnSend.gridy = 1;
 		add(btnSend, gbc_btnSend);
 		
-		JButton btnStart = new JButton("Start!");
+		btnStart = new JButton("Start!");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*Set s = new Set();
-				s.add(new Tile(Color.Black, 1));
-				s.add(new Tile(Color.Black, 6));
-				s.add(new Tile(Color.Yellow, 9));
-				s.add(new Tile(Color.Blue, 3));
-				client.handleMessage(new SendHand("Woot", s));*/
-				client.sendMessage(new StartGame(client.playerName));
-				//TODO start the game
+				if(((JButton)e.getSource()).getText() == "Start!"){
+					client.sendMessage(new StartGame(client.playerName));
+				}
+				if(((JButton)e.getSource()).getText() == "End Turn"){
+					client.sendMessage(new EndTurn(client.playerName));
+					((JButton)e.getSource()).setEnabled(false);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();
@@ -103,6 +103,11 @@ public class Chat extends JPanel {
 		add(btnStart, gbc_btnStart);
 
 	}
+	
+	public JButton getStartButton(){
+		return btnStart;
+	}
+	
 	public void sendMessage(){
 		ChatMessage message = new ChatMessage(client.playerName,tfInput.getText()); 
 		tfInput.setText("");

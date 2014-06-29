@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputAdapter;
 
+import message.MoveToNewSet;
 import message.NewSet;
 
 public class GameBoard extends JPanel{
@@ -76,11 +77,17 @@ public class GameBoard extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(gametile != null){
-					System.out.println("Move from: "+Clientgui.getInstance().playerName);
+				if(gametile != null && gametile.getParent() == hand){
+					//System.out.println("Move from: "+Clientgui.getInstance().playerName);
 					Tile t = gametile.getTile();
 					t.deSelet();
 					Clientgui.getInstance().sendMessage(new NewSet(Clientgui.getInstance().playerName,t));
+				}
+				
+				if(gametile != null && gametile.getParent() != hand){
+					Tile t = gametile.getTile();
+					t.deSelet();
+					Clientgui.getInstance().sendMessage(new MoveToNewSet(Clientgui.getInstance().playerName, t, ((GameBoardRow)(gametile.getParent())).s));
 				}
 				
 //				System.out.println(e.getSource());
