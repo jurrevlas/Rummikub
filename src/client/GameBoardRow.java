@@ -42,7 +42,6 @@ public class GameBoardRow extends JPanel{
 	
 	@Override
 	public void repaint() {
-		System.out.println("Repaint");
 		this.removeAll();
 		this.addTiles();
 		Component a = this;
