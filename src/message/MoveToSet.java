@@ -18,6 +18,7 @@ public class MoveToSet extends GameMessage {
 		this.tile = tile;
 		this.from = from;
 		this.to = to;
+		message = sender +" moved" +tile.toString() +" from "+from.toString() +" to " + to.toString(); 
 	}
 	
 	public Tile getTile(){

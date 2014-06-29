@@ -14,6 +14,7 @@ public class SendTable extends GameMessage {
 	public SendTable(String sender, Table table) {
 		super(sender);
 		this.table = table;
+		message = "The whole table got thrown at you!";
 	}
 	
 	public Table getTable(){

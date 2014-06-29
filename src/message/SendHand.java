@@ -16,6 +16,7 @@ public class SendHand extends GameMessage{
 	public SendHand(String sender, Set hand) {
 		super(sender);
 		set = hand;
+		message = "Your hand is: " +set.toString();
 	}
 	
 	public Set getHand(){

@@ -9,6 +9,7 @@ public class YourTurn extends GameMessage {
 
 	public YourTurn() {
 		super("Server");
+		message = "It's your turn!";
 	}
 
 }
