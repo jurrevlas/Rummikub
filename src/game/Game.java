@@ -162,11 +162,13 @@ public class Game extends Observable{
 			MoveToHand temp = (MoveToHand)(move);
 			if(!started ||
 				!temp.getSender().equals( players.get(currTurn).getName() ) ||
-				!table.removeFromSet(temp.getSource(), temp.getTile()))
+				!recently.contains(((MoveToHand) move).getTile()) ||
+				!table.removeFromSet(temp.getSource(), temp.getTile())
+				)
 			{
 				server.send(move.getSender(), new WrongTurn());
 			}else{
-				//table.addToSet(temp.getDestination(), temp.getTile());
+				players.get(currTurn).add(temp.getTile());
 				server.sendAll(move);
 				recently.add(temp.getTile());
 			}

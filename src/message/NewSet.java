@@ -16,6 +16,7 @@ public class NewSet extends GameMessage{
 		super(sender);
 		this.tile = tile;
 		set = null;
+		message = sender+" creates a new Set with the Tile: "+tile.toString(); 
 	}
 	public NewSet(String sender,Set set){
 		super(sender);

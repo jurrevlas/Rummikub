@@ -9,6 +9,7 @@ public class WrongTurn extends GameMessage {
 
 	public WrongTurn() {
 		super("Server");
+		message = "You tried to break the game!";
 	}
 
 }
