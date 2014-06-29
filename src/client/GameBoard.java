@@ -58,7 +58,7 @@ public class GameBoard extends JPanel{
 		setLayout(new BorderLayout());
 		Set s = new Set();
 		//s.add(new Tile(Color.Black, 1));
-		hand = new GameBoardRow(s);
+		hand = new GameBoardRow(s,true);
 		JScrollPane sp = new JScrollPane(hand,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		add(sp, BorderLayout.PAGE_END);

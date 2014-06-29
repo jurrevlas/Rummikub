@@ -192,7 +192,7 @@ public class Clientgui {
 				gameboard.hand.validate();
 				gameboard.hand.repaint();
 			}
-			GameBoardRow gbr = new GameBoardRow(s);
+			GameBoardRow gbr = new GameBoardRow(s,false);
 			gameboard.centerpanel.add(gbr);
 			gameboard.centerpanel.invalidate();
 			frame.validate();
@@ -235,7 +235,23 @@ public class Clientgui {
 		
 		if(message instanceof MoveToSet){
 			MoveToSet mts = (MoveToSet)message;
-			
+			for(Component c : gameboard.centerpanel.getComponents()){
+				if(c instanceof GameBoardRow){
+					GameBoardRow gbr = (GameBoardRow)c;
+					if (gbr.s.equals(mts.getDestination())){
+						gbr.s.add(mts.getTile());
+						gbr.invalidate();
+					}
+					if (gbr.s.equals(mts.getSource())){
+						gbr.s.remove(mts.getTile());
+						gbr.invalidate();
+					}
+				}
+			}
+			gameboard.centerpanel.invalidate();
+			gameboard.invalidate();
+			frame.validate();
+			frame.repaint();
 		}
 		
 		if(message instanceof YourTurn){

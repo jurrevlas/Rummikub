@@ -63,14 +63,14 @@ public class GameTile extends JLabel{
 															gb.gametile.getTile(), 
 															((GameBoardRow)(gt).getParent()).s));
 					}
-					if(gb.gametile == gt){
-						gt.getTile().deSelet();
-						gb.gametile = null;
-					}
 					if(gb.gametile != gt && gb.hand != gb.gametile.getParent()){
 						gb.gametile.getTile().deSelet();
 						Clientgui.getInstance().sendMessage(new MoveToSet(Clientgui.getInstance().playerName, gb.gametile.getTile(),
 								((GameBoardRow)(gb.gametile.getParent())).s, ((GameBoardRow)(gt).getParent()).s));
+					}
+					if(gb.gametile == gt){
+						gt.getTile().deSelet();
+						gb.gametile = null;
 					}
 				}else{
 					gt.getTile().select();

@@ -23,7 +23,7 @@ import javax.swing.event.MouseInputAdapter;
 public class GameBoardRow extends JPanel{
 	public Set s = new Set();
 	
-	public GameBoardRow(Set tiles){
+	public GameBoardRow(Set tiles, boolean hand){
 		super();
 		this.s = tiles;
 		this.addMouseListener(new MouseInputAdapter() {
@@ -64,7 +64,8 @@ public class GameBoardRow extends JPanel{
 			}
 		});
 		setBackground(java.awt.Color.black);
-		add(Box.createRigidArea(new Dimension(60,86)));
+		if(hand)
+			add(Box.createRigidArea(new Dimension(0,86)));
 	}
 	
 //	private void addTiles(){

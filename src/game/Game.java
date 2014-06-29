@@ -155,6 +155,7 @@ public class Game extends Observable{
 				server.sendAll(move);
 				recently.add(temp.getTile());
 			}
+			System.out.println(table.toString());
 		}
 		
 		if(move instanceof MoveToHand){
