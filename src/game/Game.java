@@ -96,7 +96,7 @@ public class Game extends Observable{
 		return players.size() == maxPlayers;
 	}
 	
-	public void move(Message move){
+	public void handleGameMessage(Message move){
 		
 		if(move instanceof StartGame){
 			if(startGame())

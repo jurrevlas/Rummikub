@@ -1,6 +1,6 @@
 package message;
 
-public class GameFull extends Message{
+public class GameFull extends GameMessage{
 
 	
 

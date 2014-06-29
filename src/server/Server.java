@@ -10,10 +10,7 @@ import java.util.LinkedList;
 
 import org.omg.CosNaming.IstringHelper;
 
-import message.ChatMessage;
-import message.GameFull;
-import message.Introduction;
-import message.Message;
+import message.*;
 
 public class Server extends Thread{	
 	
@@ -73,6 +70,10 @@ public class Server extends Thread{
 		if(message instanceof ChatMessage){
 			sendAll(message);
 		}
+		if(message instanceof GameMessage){
+			game.handleGameMessage(message);
+		}
+		
 		System.out.println("[hM]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
 	}
 			
