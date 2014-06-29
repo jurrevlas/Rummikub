@@ -62,6 +62,10 @@ public class Game extends Observable{
 		return players;
 	}		
 	
+	public boolean started(){
+		return started;
+	}
+	
 	//game methods
 	
 	public boolean startGame(){

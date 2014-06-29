@@ -32,7 +32,7 @@ public class Server extends Thread{
 	
 	public  void addClient(Socket socket){
 		Client cli = new Client(socket,this);	
-		if(!game.isFull()){
+		if(!game.isFull() && !game.started()){
 			cli.sendMessage(new Introduction("Server"));
 			clients.add(cli);
 		}else
