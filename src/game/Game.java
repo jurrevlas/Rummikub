@@ -21,6 +21,7 @@ public class Game extends Observable{
 	
 	private Table backUpTable;
 	private Player backUpPlayer;
+	private Set recently;
 	
 	private Server server;
 	
@@ -87,6 +88,9 @@ public class Game extends Observable{
 			
 			//roll for first turn			
 			currTurn = (int) (100*Math.random() % players.size());
+			server.send(players.get(currTurn).getName(), new YourTurn());
+			recently = new Set();
+			backUp();
 						
 			//TODO notify player whose turn it is
 			//notifyAll();
@@ -133,6 +137,7 @@ public class Game extends Observable{
 				server.send(move.getSender(), new WrongTurn());
 			}else{
 				table.addToSet(temp.getDestination(), temp.getTile());
+				server.sendAll(move);
 			}
 		}
 		
