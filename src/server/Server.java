@@ -45,9 +45,11 @@ public class Server extends Thread{
 	}
 	
 	public void removeClient(Client cli){
+		System.out.println("rm client: " + cli.getPlayer().toString());
+		System.out.println("rm player: " + clients.getLast().getPlayer().toString());
 		game.removePlayer(cli.getPlayer());
 		this.clients.remove(cli);
-		System.out.println("Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
+		System.out.println("[rP]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
 	}
 	
 	public void sendAll(Message message){
@@ -65,12 +67,13 @@ public class Server extends Thread{
 		if(message instanceof Introduction){
 			Player player = new Player(message.getSender());
 			c.setPlayer(player);
+			System.out.println("add Player");
 			this.game.addPlayer(player);
 		}
 		if(message instanceof ChatMessage){
 			sendAll(message);
 		}
-		System.out.println("Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
+		System.out.println("[hM]Status: Cl: " + this.clients.size() + " Pl: " + this.game.getPlayers().size());
 	}
 			
 	public static void main(String[] args) throws InterruptedException{

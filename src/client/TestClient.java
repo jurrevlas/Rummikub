@@ -22,7 +22,6 @@ public class TestClient {
 			out = new ObjectOutputStream(socket.getOutputStream());
 			out.writeObject(new Introduction("Player" + socket.getPort()));
 			out.writeObject(new ChatMessage("Player" + socket.getPort(), "Hi girls, lets take a Selfy"));
-
 		} catch (IOException e) {			
 			//e.printStackTrace();
 		}
