@@ -136,8 +136,9 @@ public class Game extends Observable{
 		if(move instanceof AddToSet){
 			AddToSet temp =(AddToSet)(move);
 			if(!started || 
-					!temp.getSender().equals( players.get(currTurn) ) ||
-					!players.get(currTurn).contains(temp.getTile()))
+					!temp.getSender().equals( players.get(currTurn).getName() ) //||
+					//!players.get(currTurn).contains(temp.getTile())
+					)
 			{
 				server.send(move.getSender(), new WrongTurn());
 			}else{

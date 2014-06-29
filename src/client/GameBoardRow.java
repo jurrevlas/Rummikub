@@ -21,8 +21,10 @@ import javax.swing.event.MouseInputAdapter;
 
 @SuppressWarnings("serial")
 public class GameBoardRow extends JPanel{
-	public Set s;
+	public Set s = new Set();
+	
 	public GameBoardRow(Set tiles){
+		super();
 		this.s = tiles;
 		this.addMouseListener(new MouseInputAdapter() {
 			@Override
@@ -65,39 +67,56 @@ public class GameBoardRow extends JPanel{
 		//this.add(Box.createRigidArea(new Dimension(60,86)));
 	}
 	
-	private void addTiles(){
-		if (s != null){
-			for(Tile t : s){
-				GameTile j = null;
-				if (t.isSelected()){
-					try {
-						BufferedImage bimg = ImageIO.read(new File("src/images/"+t.toString()+".png"));
-						for (int x = 0; x < bimg.getWidth(); x++) {
-				            for (int y = 0; y < bimg.getHeight(); y++) {
-				                int rgba = bimg.getRGB(x, y);
-				                java.awt.Color col = new java.awt.Color(rgba, true);
-				                col = new java.awt.Color(255 - col.getRed(),255 - col.getGreen(),255 - col.getBlue());
-				                bimg.setRGB(x, y, col.getRGB());
-				            }
-				        }
-						j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
-						j.setIcon(new ImageIcon(bimg));
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				}else{
-					j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
-				}
-				this.add(j);
-			}
-		}
-	}
+//	private void addTiles(){
+//		if (s != null){
+//			for(Tile t : s){
+//				GameTile j = null;
+//				if (t.isSelected()){
+//					try {
+//						BufferedImage bimg = ImageIO.read(new File("src/images/"+t.toString()+".png"));
+//						for (int x = 0; x < bimg.getWidth(); x++) {
+//				            for (int y = 0; y < bimg.getHeight(); y++) {
+//				                int rgba = bimg.getRGB(x, y);
+//				                java.awt.Color col = new java.awt.Color(rgba, true);
+//				                col = new java.awt.Color(255 - col.getRed(),255 - col.getGreen(),255 - col.getBlue());
+//				                bimg.setRGB(x, y, col.getRGB());
+//				            }
+//				        }
+//						j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
+//						j.setIcon(new ImageIcon(bimg));
+//					} catch (IOException e1) {
+//						e1.printStackTrace();
+//					}
+//				}else{
+//					j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
+//				}
+//				this.add(j);
+//			}
+//		}
+//	}
 	
 	@Override
 	public void repaint() {
-		this.removeAll();
-		this.addTiles();
+		//this.removeAll();
+		//this.addTiles();
+		int gt = 0;
+		for(Component c : getComponents()){
+			if(c instanceof GameTile){
+				gt++;
+			}
+		}
 		
+		if(s!= null && gt != s.size()){
+			removeAll();
+			for(Tile t : s){
+				add(new GameTile(t));
+			}
+		}
+		
+		for(Component c : getComponents()){
+			c.validate();
+			c.repaint();
+		}
 		Component a = this;
 		while(a.getParent() != null){
 			a = a.getParent();

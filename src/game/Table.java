@@ -33,6 +33,8 @@ public class Table extends LinkedList<Set>{
 	}	
 
 	public void addToSet(Set set, Tile tile){
+		System.out.println(set.getID());
+		System.out.println(getFirst().getID());
 		get(indexOf(set)).add(tile);
 	}
 	

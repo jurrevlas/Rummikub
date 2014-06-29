@@ -28,21 +28,51 @@ import message.AddToSet;
 public class GameTile extends JLabel{
 	private Tile t;
 
-	public GameTile(ImageIcon i, Tile tile){
-		super(i);
+	private ImageIcon selected;
+	private ImageIcon unselected;
+	
+	public GameTile(Tile tile){
+		super(new ImageIcon("src/images/"+tile.toString()+".png"));
 		setTile(tile);
+		try {
+			BufferedImage bimg = ImageIO.read(new File("src/images/"+getTile().toString()+".png"));
+			for (int x = 0; x < bimg.getWidth(); x++) {
+	            for (int y = 0; y < bimg.getHeight(); y++) {
+	                int rgba = bimg.getRGB(x, y);
+	                Color col = new Color(rgba, true);
+	                col = new Color(255 - col.getRed(),255 - col.getGreen(),255 - col.getBlue());
+	                bimg.setRGB(x, y, col.getRGB());
+	            }
+	        }
+			selected = new ImageIcon(bimg);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		unselected = new ImageIcon("src/images/"+tile.toString()+".png");
+		
 		addMouseListener(new MouseInputAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GameBoard gb = GameBoard.getInstance();
+				GameTile gt = (GameTile)e.getSource();
 				if(gb.gametile != null){
 					if(gb.hand == gb.gametile.getParent() && gb.hand != ((GameTile)e.getSource()).getParent()){
 						Clientgui.getInstance().sendMessage(new AddToSet(Clientgui.getInstance().playerName,
 															gb.gametile.getTile(), 
 															((GameBoardRow)((GameTile)e.getSource()).getParent()).s));
 					}
+					if(gb.gametile == gt){
+						gt.getTile().deSelet();
+						gb.gametile = null;
+					}
+				}else{
+					gt.getTile().select();
+					gb.gametile = gt;
 				}
-				
+				gt.validate();
+				gt.repaint();
+				gb.validate();
+				gb.repaint();
 //				GameTile gt = (GameTile)e.getSource();
 //				GameTile bgt = GameBoard.getInstance().gametile;
 //				if(bgt != null && bgt != gt){
@@ -135,6 +165,11 @@ public class GameTile extends JLabel{
 	
 	@Override
 	public void repaint() {
+		if(getTile() != null && getTile().isSelected()){
+			setIcon(selected);
+		}else{
+			setIcon(unselected);
+		}
 		super.repaint();
 	}
 }

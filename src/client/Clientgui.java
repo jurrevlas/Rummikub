@@ -176,6 +176,7 @@ public class Clientgui {
 			sendMessage(new Introduction(gui.playerName));
 
 		if(message instanceof SendHand){
+			System.out.println("Client/SendHand/");
 			gameboard.setHand(((SendHand) message).getHand());
 			frame.validate();
 		}
