@@ -104,9 +104,10 @@ public class Game extends Observable{
 		return players.size() == maxPlayers;
 	}
 	
-	public void handleGameMessage(Message move){
+	public synchronized void  handleGameMessage(Message move){
 		System.out.println("there was a game message");
-		if(move instanceof StartGame){			
+		if(move instanceof StartGame){
+			
 			if(startGame())
 				server.sendAll(new StartGame("Server"));
 			else
