@@ -64,7 +64,7 @@ public class GameBoardRow extends JPanel{
 			}
 		});
 		setBackground(java.awt.Color.black);
-		//this.add(Box.createRigidArea(new Dimension(60,86)));
+		add(Box.createRigidArea(new Dimension(60,86)));
 	}
 	
 //	private void addTiles(){
@@ -114,6 +114,7 @@ public class GameBoardRow extends JPanel{
 		}
 		
 		for(Component c : getComponents()){
+			c.invalidate();
 			c.validate();
 			c.repaint();
 		}

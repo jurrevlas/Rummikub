@@ -78,7 +78,9 @@ public class GameBoard extends JPanel{
 				
 				if(gametile != null){
 					System.out.println("Move from: "+Clientgui.getInstance().playerName);
-					Clientgui.getInstance().sendMessage(new NewSet(Clientgui.getInstance().playerName,gametile.getTile()));
+					Tile t = gametile.getTile();
+					t.deSelet();
+					Clientgui.getInstance().sendMessage(new NewSet(Clientgui.getInstance().playerName,t));
 				}
 				
 //				System.out.println(e.getSource());
