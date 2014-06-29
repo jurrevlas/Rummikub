@@ -13,10 +13,6 @@ import message.GameFull;
 import message.Introduction;
 import message.Message;
 
-
-
-
-
 public class Server extends Thread{	
 	
 	/** Accepts new clients*/
@@ -31,7 +27,7 @@ public class Server extends Thread{
 	public Server(int port){
 		
 		clients = new LinkedList<Client>();
-		game = new Game();
+		game = new Game(this);
 		System.out.println("Server started on port... "+port);
 		serverSocket = new ServerThread(port,this);	
 		serverSocket.start();

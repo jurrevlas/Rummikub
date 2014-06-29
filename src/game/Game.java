@@ -2,6 +2,9 @@ package game;
 
 import java.util.LinkedList;
 import java.util.Observable;
+import server.Server;
+import message.*;
+
 
 public class Game extends Observable{
 	
@@ -17,8 +20,11 @@ public class Game extends Observable{
 	private Table backUpTable;
 	private Player backUpPlayer;
 	
+	private Server server;
 	
-	public Game(){
+	
+	public Game(Server server){
+		this.server = server;
 		//player options
 		maxPlayers = 4;			
 		players = new LinkedList<Player>();		
@@ -58,8 +64,11 @@ public class Game extends Observable{
 				for(int i = 0; i < 14; i++){
 					p.add(table.popFromStack());
 				}
+				server.send(p.getName(), new SendHand("Server",p));
 			}
-				
+			
+			
+			
 			
 			//roll for first turn			
 			currTurn = (int) (100*Math.random() % players.size());
@@ -76,8 +85,29 @@ public class Game extends Observable{
 		return players.size() == maxPlayers;
 	}
 	
-	public void move(){
-		//TODO
+	public void move(Message move){
+		if(move instanceof NewSet){
+			NewSet temp = (NewSet)(move);
+			if(	!started || 
+				!temp.getSender().equals( players.get(currTurn) ) ||
+				!players.get(currTurn).contains(temp.getTile()))
+			{				
+					server.send(move.getSender(), new WrongTurn());			
+			}else{
+				table.newSet(temp.getTile());
+				players.get(currTurn).remove(temp.getTile());
+			}
+		}
+		if(move instanceof StartGame){
+			if(startGame())
+				server.sendAll(new StartGame("Server"));
+			else
+				server.send(move.getSender(), new ChatMessage("Server","Nope"));
+		}
+		
+		
+		
+		
 	}
 	
 	public Table getTable(){
