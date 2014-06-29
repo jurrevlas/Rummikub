@@ -1,5 +1,7 @@
 package server;
 
+import game.Player;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -12,10 +14,9 @@ public class Client {
 	protected Server server;
 	private ObjectOutputStream out;
 	private ClientThread listener;
-	protected String clientName;
+	private Player player;
 	
 	public Client(Socket socket, Server server){
-		clientName = "";
 		this.socket = socket;
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -35,15 +36,6 @@ public class Client {
 		}
 	}
 	
-	public String getName(){
-		return clientName;
-	}
-	
-	@Override
-	public String toString(){
-		return clientName;
-	}
-	
 	public void disconnect(){
 		try {
 			this.out.close();
@@ -52,6 +44,14 @@ public class Client {
 			e.printStackTrace();
 		}
 		this.server.removeClient(this);
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 }

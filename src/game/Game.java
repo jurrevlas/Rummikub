@@ -31,6 +31,15 @@ public class Game extends Observable{
 		won = false;
 	}
 	
+	public void removePlayer(Player player){
+		for(Player p: players){
+			if(p.getName() == player.getName()){
+				System.out.println("Premove: " + p.getName());
+				players.remove(p);
+			}
+		}
+	}
+	
 	//setter and getter
 	public boolean addPlayer(Player player){
 		if(players.size() >= maxPlayers && !started)
