@@ -125,7 +125,7 @@ public class Game extends Observable{
 				
 				players.get(currTurn).remove(temp.getTile());
 				
-				server.sendAll(new NewSet(table.newSet(temp.getTile())));
+				server.sendAll(new NewSet(move.getSender(),table.newSet(temp.getTile())));
 			}
 		}		
 		

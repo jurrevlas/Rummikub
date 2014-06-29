@@ -17,8 +17,8 @@ public class NewSet extends GameMessage{
 		this.tile = tile;
 		set = null;
 	}
-	public NewSet(Set set){
-		super("server");
+	public NewSet(String sender,Set set){
+		super(sender);
 		this.set = set;
 		this.tile = set.getFirst(); 
 	}
