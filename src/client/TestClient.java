@@ -19,7 +19,7 @@ public class TestClient {
 						
 			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
-
+			out.writeObject(new StartGame("Hanz"));
 		} catch (IOException e) {			
 			//e.printStackTrace();
 		}

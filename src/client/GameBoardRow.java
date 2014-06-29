@@ -20,7 +20,6 @@ public class GameBoardRow extends JPanel{
 	public Set s;
 	public GameBoardRow(Set tiles){
 		this.s = tiles;
-		this.addTiles();
 		this.addMouseListener(new MouseInputAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -28,6 +27,7 @@ public class GameBoardRow extends JPanel{
 				super.mouseClicked(e);
 			}
 		});
+		setBackground(java.awt.Color.black);
 		//this.add(Box.createRigidArea(new Dimension(60,86)));
 	}
 	
@@ -35,14 +35,6 @@ public class GameBoardRow extends JPanel{
 		if (s != null){
 			for(Tile t : s){
 				GameTile j = new GameTile(new ImageIcon("src/images/"+t.toString()+".png"),t);
-				j.addMouseListener(new MouseInputAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						System.out.println(((GameTile)e.getSource()).getTile());
-						super.mouseClicked(e);
-					}
-				});
-
 				this.add(j);
 			}
 		}
@@ -50,6 +42,7 @@ public class GameBoardRow extends JPanel{
 	
 	@Override
 	public void repaint() {
+		System.out.println("Repaint");
 		this.removeAll();
 		this.addTiles();
 		Component a = this;
