@@ -72,7 +72,7 @@ public class Server extends Thread{
 			sendAll(message);
 		}
 		if(message instanceof GameMessage){
-			System.out.println("server/handleMessage/GameMessage");
+			System.out.println("server/handleMessage/GameMessage"+message.getSender());
 			game.handleGameMessage(message);
 		}
 		

@@ -1,10 +1,14 @@
 package client;
 
+import game.Set;
+import game.Tile;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -53,6 +57,8 @@ public class Clientgui {
 
 	public void repaint(){
 		
+		frame.validate();
+		frame.repaint();
 	}
 	
 	public static Clientgui getInstance(){
@@ -170,8 +176,56 @@ public class Clientgui {
 			sendMessage(new Introduction(gui.playerName));
 
 		if(message instanceof SendHand){
+			System.out.println("Client/SendHand/");
 			gameboard.setHand(((SendHand) message).getHand());
+			frame.validate();
 		}
+		
+		if(message instanceof NewSet){
+			System.out.println("Client/Message/NewSet");
+			Tile t = ((NewSet)message).getTile();
+			t.deSelet();
+			Set s = new Set();
+			s.add(t);
+			if(message.getSender().equals(playerName)){
+				gameboard.gametile = null;
+				gameboard.hand.s.remove(t);
+				gameboard.hand.invalidate();
+				gameboard.hand.validate();
+				gameboard.hand.repaint();
+			}
+			GameBoardRow gbr = new GameBoardRow(s);
+			gameboard.centerpanel.add(gbr);
+			gameboard.centerpanel.invalidate();
+			frame.validate();
+		}
+		
+		if(message instanceof AddToSet){
+			System.out.println("Client/Message/AddToSet");
+			AddToSet ats = (AddToSet)message;
+			Tile t = ats.getTile();
+			t.deSelet();
+			if(ats.getSender().equals(playerName)){
+				gameboard.gametile = null;
+				gameboard.hand.s.remove(t);
+				gameboard.hand.invalidate();
+				gameboard.hand.validate();
+				gameboard.hand.repaint();
+			}
+			for(Component c : gameboard.centerpanel.getComponents()){
+				if(c instanceof GameBoardRow){
+					GameBoardRow gbr = (GameBoardRow)c;
+					if (gbr.s.equals(ats.getDestination())){
+						gbr.s.add(t);
+						gbr.invalidate();
+					}
+				}
+			}
+			gameboard.invalidate();
+			gameboard.validate();
+			gameboard.repaint();
+		}
+		
 		if(message instanceof ChatMessage){
 			gui.pnlChat.printMessage(((ChatMessage) message ).getSender(), ((ChatMessage) message ).getMessage());
 		}

@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputAdapter;
 
+import message.NewSet;
+
 public class GameBoard extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private static GameBoard gameboard = null;
@@ -54,7 +56,9 @@ public class GameBoard extends JPanel{
 		
 		setBackground(java.awt.Color.darkGray);
 		setLayout(new BorderLayout());
-		hand = new GameBoardRow(new Set());
+		Set s = new Set();
+		//s.add(new Tile(Color.Black, 1));
+		hand = new GameBoardRow(s);
 		JScrollPane sp = new JScrollPane(hand,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		add(sp, BorderLayout.PAGE_END);
@@ -71,33 +75,41 @@ public class GameBoard extends JPanel{
 		addMouseListener(new MouseInputAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(e.getSource());
 				
-				if (gametile != null){
-					gametile.getTile().deSelet();
-					Set s = new Set();
-					s.add(gametile.getTile());
-					centerpanel.add(new GameBoardRow(s));
-					((GameBoardRow)gametile.getParent()).s.remove(gametile.getTile());
-					Component a = gametile;
-					while(a.getParent() != null){
-						a = a.getParent();
-						a.repaint();
-						a.validate();
-					}
-					gametile = null;
+				if(gametile != null){
+					System.out.println("Move from: "+Clientgui.getInstance().playerName);
+					Clientgui.getInstance().sendMessage(new NewSet(Clientgui.getInstance().playerName,gametile.getTile()));
 				}
 				
-				/*
-				Set s = new Set();
-				s.add(new Tile(Color.Yellow, 12));
-				centerpanel.add(new GameBoardRow(s));
-				*/
-				
-				
-				
-				Clientgui.getInstance().frame.repaint();
-				Clientgui.getInstance().frame.validate();
+//				System.out.println(e.getSource());
+//				
+//				if (gametile != null){
+//					gametile.getTile().deSelet();
+//					Set s = new Set();
+//					s.add(gametile.getTile());
+//					centerpanel.add(new GameBoardRow(s));
+//					((GameBoardRow)gametile.getParent()).s.remove(gametile.getTile());
+//					gametile.invalidate();
+//					centerpanel.invalidate();
+//					/*
+//					Component a = gametile;
+//					while(a.getParent() != null){
+//						a = a.getParent();
+//						a.repaint();
+//						a.validate();
+//					}*/
+//					gametile = null;
+//				}
+//				
+//				/*
+//				Set s = new Set();
+//				s.add(new Tile(Color.Yellow, 12));
+//				centerpanel.add(new GameBoardRow(s));
+//				*/
+//				
+//				Clientgui.getInstance().repaint();
+//				//Clientgui.getInstance().frame.repaint();
+//				//Clientgui.getInstance().frame.validate();
 				super.mouseClicked(e);
 			}
 		});

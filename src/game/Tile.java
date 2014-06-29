@@ -48,4 +48,13 @@ public class Tile implements Serializable, Comparable<Tile>{
 	public Boolean isSelected(){
 		return select;
 	}
+	
+	public boolean equals(Object o){
+		if (o instanceof Tile){
+			Tile t = (Tile)o;
+			return t.getColor() == this.color && t.getNumber() == this.getNumber();
+		}else{
+			return false;
+		}
+	}
 }
