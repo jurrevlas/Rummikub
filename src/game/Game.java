@@ -86,6 +86,14 @@ public class Game extends Observable{
 	}
 	
 	public void move(Message move){
+		
+		if(move instanceof StartGame){
+			if(startGame())
+				server.sendAll(new StartGame("Server"));
+			else
+				server.send(move.getSender(), new ChatMessage("Server","Nope"));
+		}		
+		
 		if(move instanceof NewSet){
 			NewSet temp = (NewSet)(move);
 			if(	!started || 
@@ -97,12 +105,23 @@ public class Game extends Observable{
 				table.newSet(temp.getTile());
 				players.get(currTurn).remove(temp.getTile());
 			}
+		}		
+		
+		if(move instanceof AddToSet){
+			AddToSet temp =(AddToSet)(move);
+			if(!started || 
+					!temp.getSender().equals( players.get(currTurn) ) ||
+					!players.get(currTurn).contains(temp.getTile()))
+			{
+				server.send(move.getSender(), new WrongTurn());
+			}else{
+				table.addToSet(temp.getDestination(), temp.getTile());
+			}
 		}
-		if(move instanceof StartGame){
-			if(startGame())
-				server.sendAll(new StartGame("Server"));
-			else
-				server.send(move.getSender(), new ChatMessage("Server","Nope"));
+		
+		if(move instanceof MoveToSet){
+			MoveToSet temp = (MoveToSet)(move);
+			//TODO
 		}
 		
 		

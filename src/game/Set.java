@@ -13,9 +13,14 @@ public class Set extends LinkedList<Tile>{
 	 * 
 	 */
 	private static final long serialVersionUID = -46223845867742988L;
-
+	private static long IDcreator = 0;
+	private final long ID;
+	
+	
+	
 	public Set(){
 		super();		
+		ID = IDcreator++;
 	}	
 	
 	public boolean isValid(){
@@ -48,6 +53,21 @@ public class Set extends LinkedList<Tile>{
 	public void sort(){
 		Collections.sort(this);
 	}	
+	
+	public long getID(){
+		return ID;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Set){
+			//return this.ID == (Set)(o).I;
+			return false;
+		}else{
+			return super.equals(o);
+		}
+			
+	}
 	
 	@Override
 	public String toString(){

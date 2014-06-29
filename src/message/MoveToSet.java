@@ -19,5 +19,13 @@ public class MoveToSet extends Message {
 		this.from = from;
 		this.to = to;
 	}
+	
+	public Set getSource(){
+		return from;
+	}
+	
+	public Set getDestination(){
+		return to;
+	}
 
 }
