@@ -184,6 +184,7 @@ public class Clientgui {
 		if(message instanceof NewSet){
 			System.out.println("Client/Message/NewSet");
 			Set s = ((NewSet)message).getSet();
+			System.out.println(message.getSender()+" "+playerName);
 			if(message.getSender().equals(playerName)){
 				gameboard.gametile = null;
 				System.out.println("Remove:"+gameboard.hand.s.remove(s.getFirst()));
@@ -201,7 +202,6 @@ public class Clientgui {
 			System.out.println("Client/Message/AddToSet");
 			AddToSet ats = (AddToSet)message;
 			Tile t = ats.getTile();
-			t.deSelet();
 			if(ats.getSender().equals(playerName)){
 				gameboard.gametile = null;
 				gameboard.hand.s.remove(t);
@@ -215,12 +215,31 @@ public class Clientgui {
 					if (gbr.s.equals(ats.getDestination())){
 						gbr.s.add(t);
 						gbr.invalidate();
+						Component a = gbr;
+						while(a.getParent() != null){
+							a.repaint();
+							a.validate();
+							a = a.getParent();
+							a.repaint();
+							a.validate();
+						}
 					}
 				}
 			}
+			gameboard.centerpanel.invalidate();
 			gameboard.invalidate();
-			gameboard.validate();
-			gameboard.repaint();
+			frame.validate();
+			frame.repaint();
+			gui.pnlChat.printMessage(message.getSender(),ats.getDestination().toString());
+		}
+		
+		if(message instanceof MoveToSet){
+			MoveToSet mts = (MoveToSet)message;
+			
+		}
+		
+		if(message instanceof YourTurn){
+			gui.pnlChat.printMessage(message.getSender(),"It's your turn.");
 		}
 		
 		if(message instanceof ChatMessage){

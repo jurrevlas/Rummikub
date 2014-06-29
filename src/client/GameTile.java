@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
 import message.AddToSet;
+import message.MoveToSet;
 
 @SuppressWarnings("serial")
 public class GameTile extends JLabel{
@@ -57,13 +58,19 @@ public class GameTile extends JLabel{
 				GameTile gt = (GameTile)e.getSource();
 				if(gb.gametile != null){
 					if(gb.hand == gb.gametile.getParent() && gb.hand != ((GameTile)e.getSource()).getParent()){
+						gb.gametile.getTile().deSelet();
 						Clientgui.getInstance().sendMessage(new AddToSet(Clientgui.getInstance().playerName,
 															gb.gametile.getTile(), 
-															((GameBoardRow)((GameTile)e.getSource()).getParent()).s));
+															((GameBoardRow)(gt).getParent()).s));
 					}
 					if(gb.gametile == gt){
 						gt.getTile().deSelet();
 						gb.gametile = null;
+					}
+					if(gb.gametile != gt && gb.hand != gb.gametile.getParent()){
+						gb.gametile.getTile().deSelet();
+						Clientgui.getInstance().sendMessage(new MoveToSet(Clientgui.getInstance().playerName, gb.gametile.getTile(),
+								((GameBoardRow)(gb.gametile.getParent())).s, ((GameBoardRow)(gt).getParent()).s));
 					}
 				}else{
 					gt.getTile().select();
