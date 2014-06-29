@@ -13,6 +13,14 @@ public class MoveToNewSet extends GameMessage {
 	private Set source;
 	private Set destination;
 	
+	
+	public MoveToNewSet(String sender, Tile tile, Set source){
+		super(sender);
+		this.tile = tile;
+		this.source = source;
+		destination = null;
+	}
+	
 	public MoveToNewSet(String sender, Tile tile, Set source,Set destination) {
 		super(sender);
 		this.tile = tile;
