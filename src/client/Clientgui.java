@@ -183,13 +183,10 @@ public class Clientgui {
 		
 		if(message instanceof NewSet){
 			System.out.println("Client/Message/NewSet");
-			Tile t = ((NewSet)message).getTile();
-			t.deSelet();
-			Set s = new Set();
-			s.add(t);
+			Set s = ((NewSet)message).getSet();
 			if(message.getSender().equals(playerName)){
 				gameboard.gametile = null;
-				gameboard.hand.s.remove(t);
+				System.out.println("Remove:"+gameboard.hand.s.remove(s.getFirst()));
 				gameboard.hand.invalidate();
 				gameboard.hand.validate();
 				gameboard.hand.repaint();
