@@ -61,6 +61,7 @@ public class Server extends Thread{
 	}
 	
 	public void handleMessage(Client c, Message message){
+		System.out.println("Server/handleMessage/"+message+" "+message.getClass());
 		if(message instanceof Introduction){
 			Player player = new Player(message.getSender());
 			c.setPlayer(player);
@@ -71,6 +72,7 @@ public class Server extends Thread{
 			sendAll(message);
 		}
 		if(message instanceof GameMessage){
+			System.out.println("server/handleMessage/GameMessage");
 			game.handleGameMessage(message);
 		}
 		

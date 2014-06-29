@@ -143,7 +143,7 @@ public class Clientgui {
 
 	public boolean addConnection(String ip, int port){
 		try {
-			gui.con = new Connection(ip,port);
+			gui.con = new Connection(ip,port,this);
 			gui.con.start();
 			return true;
 
@@ -155,7 +155,6 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
-
 		if(message instanceof Introduction)
 			sendMessage(new Introduction(gui.playerName));
 

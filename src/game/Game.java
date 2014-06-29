@@ -65,11 +65,11 @@ public class Game extends Observable{
 	//game methods
 	
 	public boolean startGame(){
-		
+		System.out.println("WOOT");
 		//only starts once
 		if(!started && players.size()>=2){
 			
-			
+			System.out.println("we doint it");
 			//give each player his hand
 			for(Player p : players){
 				for(int i = 0; i < 14; i++){
@@ -97,8 +97,9 @@ public class Game extends Observable{
 	}
 	
 	public void handleGameMessage(Message move){
-		
+		System.out.println("there was a game message");
 		if(move instanceof StartGame){
+			System.out.println("Game/handleMessage/StartGame");
 			if(startGame())
 				server.sendAll(new StartGame("Server"));
 			else

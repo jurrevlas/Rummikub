@@ -17,12 +17,12 @@ public class Connection extends Thread{
 	
 	
 	
-	public Connection(String ip, int port) throws IOException{
+	public Connection(String ip, int port, Clientgui client) throws IOException{
 		socket = new Socket(ip,port);
-		
+		this.client = client;
 		out = new ObjectOutputStream(socket.getOutputStream());		
 		listener = new Listener(this);		
-		
+		listener.start();
 	}
 	
 	public void sendMessage(Message message){

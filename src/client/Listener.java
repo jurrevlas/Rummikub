@@ -30,15 +30,15 @@ public class Listener extends Thread {
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
-
+		
 		while(!stopped){
-			try {				
+			try {
 				temp = in.readObject();
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+				this.close();
 			}
 			if(temp instanceof Message){
-				
+				con.client.handleMessage((Message) temp);
 			}
 		}
 	}
