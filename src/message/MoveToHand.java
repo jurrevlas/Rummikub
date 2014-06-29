@@ -22,5 +22,12 @@ public class MoveToHand extends GameMessage {
 		this.from = from;
 	}
 	
+	public Set getSource(){
+		return from;
+	}
+	
+	public Tile getTile(){
+		return tile;
+	}
 
 }

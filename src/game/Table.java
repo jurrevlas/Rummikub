@@ -26,10 +26,11 @@ public class Table extends LinkedList<Set>{
 		Collections.shuffle(stack);
 	}
 	
-	public void newSet(Tile tile){
+	public Set newSet(Tile tile){
 		Set set = new Set();
 		set.add(tile);
 		add(set);
+		return set;
 	}	
 
 	public void addToSet(Set set, Tile tile){

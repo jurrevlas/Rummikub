@@ -117,57 +117,80 @@ public class Game extends Observable{
 		if(move instanceof NewSet){
 			NewSet temp = (NewSet)(move);
 			if(	!started || 
-				!temp.getSender().equals( players.get(currTurn) ) ||
+				!temp.getSender().equals( players.get(currTurn).getName() ) ||
 				!players.get(currTurn).contains(temp.getTile()))
 			{				
 					server.send(move.getSender(), new WrongTurn());			
 			}else{
-				table.newSet(temp.getTile());
+				
 				players.get(currTurn).remove(temp.getTile());
-				server.sendAll(move);
+				
+				server.sendAll(new NewSet(table.newSet(temp.getTile())));
 			}
 		}		
 		
 		if(move instanceof AddToSet){
 			AddToSet temp =(AddToSet)(move);
 			if(!started || 
-					!temp.getSender().equals( players.get(currTurn) ) ||
+					!temp.getSender().equals( players.get(currTurn).getName() ) ||
 					!players.get(currTurn).contains(temp.getTile()))
 			{
 				server.send(move.getSender(), new WrongTurn());
 			}else{
 				table.addToSet(temp.getDestination(), temp.getTile());
 				server.sendAll(move);
+				recently.add(temp.getTile());
 			}
 		}
 		
 		if(move instanceof MoveToSet){
 			MoveToSet temp = (MoveToSet)(move);
 			if(!started ||
-				!temp.getSender().equals( players.get(currTurn) ) ||
+				!temp.getSender().equals( players.get(currTurn).getName() ) ||
 				!table.removeFromSet(temp.getSource(), temp.getTile()))
 			{
 				server.send(move.getSender(), new WrongTurn());
 			}else{
 				table.addToSet(temp.getDestination(), temp.getTile());
+				server.sendAll(move);
+				recently.add(temp.getTile());
+			}
+		}
+		
+		if(move instanceof MoveToHand){
+			MoveToHand temp = (MoveToHand)(move);
+			if(!started ||
+				!temp.getSender().equals( players.get(currTurn).getName() ) ||
+				!table.removeFromSet(temp.getSource(), temp.getTile()))
+			{
+				server.send(move.getSender(), new WrongTurn());
+			}else{
+				//table.addToSet(temp.getDestination(), temp.getTile());
+				server.sendAll(move);
+				recently.add(temp.getTile());
 			}
 		}
 		
 		if(move instanceof EndTurn){
-			int status = endTurn();
-			if(-1 == status){
-				server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
-				server.sendAll( new SendTable("Server",table));
-				server.send(players.get((currTurn-1)%players.size()).getName(),
-							new SendHand("Server",players.get((currTurn-1)%players.size())));
-				server.send(players.get(currTurn).getName(), new YourTurn());
-			}else if(0 == status){
-				server.sendAll(new GameWon("Server",players.get(currTurn)));
+			if(!started ||
+				!move.getSender().equals(players.get(currTurn).getName())){
+				server.send(move.getSender(), new WrongTurn());
 			}else{
-				server.send(players.get(currTurn).getName(), new YourTurn());
+				int status = endTurn();
+				if(-1 == status){
+					server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
+					server.sendAll( new SendTable("Server",table));
+					server.send(players.get((currTurn-1)%players.size()).getName(),
+								new SendHand("Server",players.get((currTurn-1)%players.size())));
+					server.send(players.get(currTurn).getName(), new YourTurn());
+				}else if(0 == status){
+					server.sendAll(new GameWon("Server",players.get(currTurn)));
+				}else{
+					server.send(players.get(currTurn).getName(), new YourTurn());
+				}
+					recently.clear();
 			}
 		}
-		
 		
 		
 		
