@@ -196,12 +196,15 @@ public class Game extends Observable{
 				if(-1 == status){
 					server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
 					server.sendAll( new SendTable("Server",table));
+					players.get((currTurn-1)%players.size()).add(table.popFromStack());
 					server.send(players.get((currTurn-1)%players.size()).getName(),
 								new SendHand("Server",players.get((currTurn-1)%players.size())));
 					server.send(players.get(currTurn).getName(), new YourTurn());
 				}else if(0 == status){
 					server.sendAll(new GameWon("Server",players.get(currTurn)));
 				}else{
+					if(recently.size() == 0)
+						players.get((currTurn-1)%players.size()).add(table.popFromStack());
 					server.send(players.get(currTurn).getName(), new YourTurn());
 				}
 					recently.clear();
