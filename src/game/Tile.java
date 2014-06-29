@@ -11,6 +11,7 @@ public class Tile implements Serializable, Comparable<Tile>{
 	private Color color;
 	private int number;
 	private Boolean select = false;
+	private boolean placedThisRound = true;
 	
 	public Tile(Color color, int number){
 		this.color = color;
