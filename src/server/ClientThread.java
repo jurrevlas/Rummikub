@@ -5,6 +5,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.BindException;
+
 import game.*;
 import message.*;
 
@@ -57,11 +58,8 @@ public class ClientThread extends Thread {
 					//e1.printStackTrace();
 				}
 			}
-			if(temp instanceof Introduction){				
-					client.clientName = ((Introduction)temp).getSender();
-					client.server.game.addPlayer(new Player(((Introduction)temp).getSender()));
-			}else{
-					client.server.handleMessage((Message) temp);
+			if(temp instanceof Message){
+				client.server.handleMessage(this.client, (Message) temp);
 			}
 			
 		}
@@ -70,6 +68,7 @@ public class ClientThread extends Thread {
 	public void close() throws IOException{
 		stopped = true;
 		this.interrupt();
+		client.server.game.removePlayer(this.client.getPlayer());
 		this.in.close();
 		this.client.disconnect();
 		

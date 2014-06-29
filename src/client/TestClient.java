@@ -11,19 +11,23 @@ import message.*;
 import org.hamcrest.core.IsInstanceOf;
 
 public class TestClient {
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		ObjectInputStream in = null;
 		ObjectOutputStream out = null;
+		Socket socket = null;
 		try {
-			Socket socket = new Socket("localhost",12345);
+			socket = new Socket("localhost",12345);
 						
 			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
-			out.writeObject(new StartGame("Hanz"));
+			out.writeObject(new Introduction("Player" + socket.getPort()));
+			out.writeObject(new ChatMessage("Player" + socket.getPort(), "Hi girls, lets take a Selfy"));
 		} catch (IOException e) {			
 			//e.printStackTrace();
 		}
 		Object temp = new Object();
+		
+		
 		while(true){
 			
 			try {
@@ -31,12 +35,9 @@ public class TestClient {
 					temp = in.readObject();
 					if(temp instanceof ChatMessage)
 						System.out.println(((ChatMessage) temp).getSender() + " " + ((ChatMessage) temp).getMessage());
-					else if(temp instanceof Introduction)
-						out.writeObject(new Introduction("test") );
 					else System.out.println(temp);
 			} catch (IOException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				socket.close();
 			}
 			
 		}
