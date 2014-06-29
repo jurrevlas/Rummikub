@@ -48,6 +48,5 @@ public class Listener extends Thread {
 		stopped = true;
 		interrupt();
 	}
-	
 
 }

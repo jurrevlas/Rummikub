@@ -161,6 +161,9 @@ public class Clientgui {
 		if(message instanceof SendHand){
 			gameboard.setHand(((SendHand) message).getHand());
 		}
+		if(message instanceof ChatMessage){
+			gui.pnlChat.printMessage(((ChatMessage) message ).getSender(), ((ChatMessage) message ).getMessage());
+		}
 		
 
 	}
