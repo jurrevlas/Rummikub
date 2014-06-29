@@ -16,5 +16,8 @@ public class SendTable extends GameMessage {
 		this.table = table;
 	}
 	
-
+	public Table getTable(){
+		return table;
+	}
+	
 }
