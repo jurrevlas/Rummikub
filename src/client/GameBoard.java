@@ -5,6 +5,7 @@ import game.Set;
 import game.Tile;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -21,12 +22,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.MouseInputAdapter;
 
 public class GameBoard extends JPanel{
 	private static final long serialVersionUID = 1L;
-	
 	//Hashtable<String, ImageIcon> tiles = new Hashtable<String, ImageIcon>();
 	GameBoardRow hand;
+	Object selection[];
+	JPanel centerpanel;
 	public GameBoard(){
 		/*
 		for(game.Color c : game.Color.values()){
@@ -45,15 +48,31 @@ public class GameBoard extends JPanel{
 		
 		add(sp, BorderLayout.PAGE_END);
 		
-		JPanel centerpanel = new JPanel();
+		centerpanel = new JPanel();
 		centerpanel.setBackground(java.awt.Color.darkGray);
 		new BoxLayout(centerpanel, BoxLayout.Y_AXIS);
 		
-		Set s = new Set();
+		//Set s = new Set();
 		
-		centerpanel.add(new GameBoardRow(s));
+		//centerpanel.add(new GameBoardRow(s));
 		add(centerpanel, BorderLayout.CENTER);
 		
+		addMouseListener(new MouseInputAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(e.getSource());
+				Set s = new Set();
+				s.add(new Tile(Color.Yellow, 12));
+				centerpanel.add(new GameBoardRow(s));
+				Component a = (Component)e.getSource();
+				while(a.getParent() != null){
+					a = a.getParent();
+					a.repaint();
+					a.validate();
+				}
+				super.mouseClicked(e);
+			}
+		});
 	}
 	
 	public void setHand(Set s){

@@ -53,9 +53,7 @@ public class GameTile extends JLabel{
 					            for (int y = 0; y < bimg.getHeight(); y++) {
 					                int rgba = bimg.getRGB(x, y);
 					                Color col = new Color(rgba, true);
-					                col = new Color(255 - col.getRed(),
-					                                255 - col.getGreen(),
-					                                255 - col.getBlue());
+					                col = new Color(255 - col.getRed(),255 - col.getGreen(),255 - col.getBlue());
 					                bimg.setRGB(x, y, col.getRGB());
 					            }
 					        }
@@ -63,7 +61,9 @@ public class GameTile extends JLabel{
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						//LOL image stuff ends here		
+						//Object[] obja = {gt, gt.getParent()};
+						//((GameBoard)gt.getParent().getParent()).selection = obja;
+						//LOL image stuff ends here
 					}
 					System.out.println("GT: "+gt.getTile()+" "+gt.getTile().isSelected());
 				}

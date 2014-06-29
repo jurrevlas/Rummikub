@@ -25,7 +25,7 @@ public class Clientgui {
 
 	private static Clientgui gui = new Clientgui();
 	
-	private JFrame frame;
+	public JFrame frame;
 	protected String playerName;
 	private Chat pnlChat;
 	private Connection con;
