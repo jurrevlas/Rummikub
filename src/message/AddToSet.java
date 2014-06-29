@@ -20,5 +20,13 @@ public class AddToSet extends Message {
 		this.to = to;
 		
 	}
+	
+	public Tile getTile(){
+		return tile;
+	}
+	
+	public Set getDestination(){
+		return to;
+	}
 
 }
