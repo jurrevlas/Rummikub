@@ -148,6 +148,13 @@ public class Game extends Observable{
 			if(-1 == status){
 				server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
 				server.sendAll( new SendTable("Server",table));
+				server.send(players.get((currTurn-1)%players.size()).getName(),
+							new SendHand("Server",players.get((currTurn-1)%players.size())));
+				server.send(players.get(currTurn).getName(), new YourTurn());
+			}else if(0 == status){
+				server.sendAll(new GameWon("Server",players.get(currTurn)));
+			}else{
+				server.send(players.get(currTurn).getName(), new YourTurn());
 			}
 		}
 		
@@ -159,12 +166,13 @@ public class Game extends Observable{
 	public Table getTable(){
 		return table;
 	}
-	
+	  
 	
 	
 	public int endTurn(){
 		if(!table.isValid()){
 			restoreBackUp();
+			currTurn = (currTurn +1) % players.size();
 			return -1;
 		}else if(players.get(currTurn).size() == 0){
 			won = true;
