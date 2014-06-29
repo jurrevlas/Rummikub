@@ -37,23 +37,11 @@ public class GameBoard extends JPanel{
 		tiles.put("Blkj", new ImageIcon("src/images/Blkj.png"));
 		tiles.put("Redj", new ImageIcon("src/images/Redj.png"));
 		*/
+		
 		setBackground(java.awt.Color.darkGray);
 		setLayout(new BorderLayout());
-		
-		//FlowLayout flow = new FlowLayout();
-		//JPanel lowerpanel = new JPanel(flow);
-		//Set s1 = new Set();
-		//s1.add(new Tile(Color.Blue, 1));
-		//s1.add(new Tile(Color.Yellow, 5));
-		//s1.add(new Tile(Color.Black, 8));
 		hand = new GameBoardRow(new Set());
-		//lowerpanel.add(new JLabel(tiles.get("Yel1")));
-		//lowerpanel.add(new JLabel(tiles.get("Blk2")));
-		//lowerpanel.add(new JLabel(tiles.get("Redj")));
-		
-		JScrollPane sp = new JScrollPane(hand,
-				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-	            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane sp = new JScrollPane(hand,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		add(sp, BorderLayout.PAGE_END);
 		
@@ -61,44 +49,6 @@ public class GameBoard extends JPanel{
 		centerpanel.setBackground(java.awt.Color.darkGray);
 		new BoxLayout(centerpanel, BoxLayout.Y_AXIS);
 		
-		
-		/*
-		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT, 5, 5);
-		
-		JPanel jp1 = new JPanel(fl1);
-		JLabel whatever = new JLabel(tiles.get("Blk2"));
-		whatever.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(e.getSource());
-			}
-		});
-*/
 		Set s = new Set();
 		
 		centerpanel.add(new GameBoardRow(s));

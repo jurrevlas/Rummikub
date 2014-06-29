@@ -144,7 +144,7 @@ public class Clientgui {
 	public boolean addConnection(String ip, int port){
 		try {
 			gui.con = new Connection(ip,port);
-			gui.con.start();			
+			gui.con.start();
 			return true;
 
 		} catch (IOException e) {

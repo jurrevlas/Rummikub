@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 
 import message.ChatMessage;
 import message.SendHand;
+import message.StartGame;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -85,12 +86,13 @@ public class Chat extends JPanel {
 		JButton btnStart = new JButton("Start!");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Set s = new Set();
+				/*Set s = new Set();
 				s.add(new Tile(Color.Black, 1));
 				s.add(new Tile(Color.Black, 6));
 				s.add(new Tile(Color.Yellow, 9));
 				s.add(new Tile(Color.Blue, 3));
-				client.handleMessage(new SendHand("Woot", s));
+				client.handleMessage(new SendHand("Woot", s));*/
+				client.sendMessage(new StartGame(client.playerName));
 				//TODO start the game
 			}
 		});
