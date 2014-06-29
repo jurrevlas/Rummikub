@@ -144,7 +144,11 @@ public class Game extends Observable{
 		}
 		
 		if(move instanceof EndTurn){
-			
+			int status = endTurn();
+			if(-1 == status){
+				server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
+				server.sendAll( new SendTable("Server",table));
+			}
 		}
 		
 		
@@ -158,14 +162,17 @@ public class Game extends Observable{
 	
 	
 	
-	public void endTurn(){
+	public int endTurn(){
 		if(!table.isValid()){
 			restoreBackUp();
+			return -1;
 		}else if(players.get(currTurn).size() == 0){
-			won = true;			
+			won = true;
+			return 0;
 		}else{			
 			currTurn = (currTurn +1) % players.size();
 			backUp();
+			return 1;
 		}
 		//notifyAll();
 	}	
