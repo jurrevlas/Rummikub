@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class Clientgui {
 
-	private static Clientgui gui = new Clientgui();
+	private static Clientgui gui;
 	
 	private JFrame frame;
 	protected String playerName;
@@ -51,7 +51,10 @@ public class Clientgui {
 	
 
 	public static Clientgui getInstance(){
-		return gui;
+		if(gui == null)
+			return  gui= new Clientgui();
+		else
+			return gui;
 	}
 	
 	
