@@ -126,6 +126,7 @@ public class Game extends Observable{
 				players.get(currTurn).remove(temp.getTile());
 				
 				server.sendAll(new NewSet(move.getSender(),table.newSet(temp.getTile())));
+				recently.add(temp.getTile());
 			}
 		}		
 		
@@ -139,6 +140,18 @@ public class Game extends Observable{
 			}else{
 				table.addToSet(temp.getDestination(), temp.getTile());
 				server.sendAll(move);
+				recently.add(temp.getTile());
+			}
+		}
+		
+		if(move instanceof MoveToNewSet){
+			MoveToNewSet temp = (MoveToNewSet)(move);
+			if(!started ||
+					!temp.getSender().equals(players.get(currTurn).getName()) ||
+					!table.removeFromSet(temp.getSource(), temp.getTile())){
+				server.send(move.getSender(), new WrongTurn());
+			}else{
+				server.sendAll(new NewSet(move.getSender(),table.newSet(temp.getTile())));
 				recently.add(temp.getTile());
 			}
 		}
