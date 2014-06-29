@@ -79,12 +79,15 @@ public class GameBoard extends JPanel{
 					s.add(gametile.getTile());
 					centerpanel.add(new GameBoardRow(s));
 					((GameBoardRow)gametile.getParent()).s.remove(gametile.getTile());
+					gametile.invalidate();
+					centerpanel.invalidate();
+					/*
 					Component a = gametile;
 					while(a.getParent() != null){
 						a = a.getParent();
 						a.repaint();
 						a.validate();
-					}
+					}*/
 					gametile = null;
 				}
 				
@@ -94,10 +97,9 @@ public class GameBoard extends JPanel{
 				centerpanel.add(new GameBoardRow(s));
 				*/
 				
-				
-				
-				Clientgui.getInstance().frame.repaint();
-				Clientgui.getInstance().frame.validate();
+				Clientgui.getInstance().repaint();
+				//Clientgui.getInstance().frame.repaint();
+				//Clientgui.getInstance().frame.validate();
 				super.mouseClicked(e);
 			}
 		});

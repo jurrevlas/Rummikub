@@ -32,15 +32,20 @@ public class GameTile extends JLabel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GameTile gt = (GameTile)e.getSource();
-				if(GameBoard.getInstance().gametile != null && GameBoard.getInstance().gametile != gt){
-					GameBoard.getInstance().gametile.getTile().deSelet();
-					((GameBoardRow)GameBoard.getInstance().gametile.getParent()).s.remove(GameBoard.getInstance().gametile.getTile());
-					if(GameBoard.getInstance().hand != ((GameBoardRow)GameBoard.getInstance().gametile.getParent())){
-						((GameBoardRow)GameBoard.getInstance().gametile.getParent()).getParent().remove(((GameBoardRow)GameBoard.getInstance().gametile.getParent()));
+				GameTile bgt = GameBoard.getInstance().gametile;
+				if(bgt != null && bgt != gt){
+					bgt.getTile().deSelet();
+					((GameBoardRow)bgt.getParent()).s.remove(bgt.getTile());
+					if(GameBoard.getInstance().hand != ((GameBoardRow)bgt.getParent())){
+						((GameBoardRow)bgt.getParent()).getParent().remove(((GameBoardRow)bgt.getParent()));
 					}
 					((GameBoardRow)gt.getParent()).s.add(GameBoard.getInstance().gametile.getTile());
 					GameBoard.getInstance().gametile = null;
+					gt.invalidate();
+					bgt.invalidate();
 					//repaint
+					Clientgui.getInstance().repaint();
+					/*
 					Component a = gt;
 					while(a.getParent() != null){
 						a = a.getParent();
@@ -54,7 +59,7 @@ public class GameTile extends JLabel{
 						a = a.getParent();
 						a.repaint();
 						a.validate();
-					}
+					}*/
 					//repaint
 					return;
 				}
@@ -63,6 +68,7 @@ public class GameTile extends JLabel{
 					gt.setIcon(new ImageIcon("src/images/"+gt.getTile().toString()+".png"));
 					System.out.println("GT: "+gt.getTile()+" "+gt.getTile().isSelected());
 					GameBoard.getInstance().gametile = null;
+					gt.invalidate();
 				}else{
 					if (GameBoard.getInstance().gametile != null){
 						return;
@@ -94,9 +100,12 @@ public class GameTile extends JLabel{
 						}
 						GameBoard.getInstance().gametile = gt;
 						//LOL image stuff ends here
+						gt.invalidate();
 					}
+					Clientgui.getInstance().repaint();
 					System.out.println("GT: "+gt.getTile()+" "+gt.getTile().isSelected());
 				}
+				Clientgui.getInstance().repaint();
 				super.mouseClicked(e);
 			}
 		});

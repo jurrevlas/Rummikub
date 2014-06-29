@@ -1,10 +1,14 @@
 package client;
 
+import game.Set;
+import game.Tile;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -53,6 +57,8 @@ public class Clientgui {
 
 	public void repaint(){
 		
+		frame.validate();
+		frame.repaint();
 	}
 	
 	public static Clientgui getInstance(){
@@ -171,7 +177,23 @@ public class Clientgui {
 
 		if(message instanceof SendHand){
 			gameboard.setHand(((SendHand) message).getHand());
+			frame.validate();
 		}
+		
+		if(message instanceof NewSet){
+			Tile t = ((NewSet)message).getTile();
+			Set s = new Set();
+			s.add(t);
+			if(message.getSender() == playerName){
+				gameboard.hand.s.remove(t);
+				gameboard.hand.invalidate();
+			}
+			GameBoardRow gbr = new GameBoardRow(s);
+			gameboard.centerpanel.add(gbr);
+			gameboard.centerpanel.invalidate();
+			frame.validate();
+		}
+		
 		if(message instanceof ChatMessage){
 			gui.pnlChat.printMessage(((ChatMessage) message ).getSender(), ((ChatMessage) message ).getMessage());
 		}
