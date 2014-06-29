@@ -87,8 +87,7 @@ public class Game extends Observable{
 			
 			
 			//roll for first turn			
-			currTurn = (int) (100*Math.random() % players.size());
-			server.send(players.get(currTurn).getName(), new YourTurn());
+			currTurn = (int) (100*Math.random() % players.size());			
 			recently = new Set();
 			backUp();
 						
@@ -108,9 +107,10 @@ public class Game extends Observable{
 		System.out.println("there was a game message");
 		if(move instanceof StartGame){
 			
-			if(startGame())
+			if(startGame()){
 				server.sendAll(new StartGame("Server"));
-			else
+				server.send(players.get(currTurn).getName(), new YourTurn());
+			}else
 				server.send(move.getSender(), new ChatMessage("Server","Nope"));
 		}		
 		
