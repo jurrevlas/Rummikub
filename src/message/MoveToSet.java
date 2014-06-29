@@ -20,6 +20,10 @@ public class MoveToSet extends Message {
 		this.to = to;
 	}
 	
+	public Tile getTile(){
+		return tile;
+	}
+	
 	public Set getSource(){
 		return from;
 	}

@@ -61,8 +61,8 @@ public class Set extends LinkedList<Tile>{
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof Set){
-			//return this.ID == (Set)(o).I;
-			return false;
+			return ID == ((Set)(o)).ID;
+			
 		}else{
 			return super.equals(o);
 		}

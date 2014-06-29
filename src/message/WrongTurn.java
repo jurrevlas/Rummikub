@@ -1,6 +1,6 @@
 package message;
 
-public class WrongTurn extends Message {
+public class WrongTurn extends GameMessage {
 
 	/**
 	 * 

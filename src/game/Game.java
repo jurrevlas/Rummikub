@@ -96,7 +96,7 @@ public class Game extends Observable{
 		return players.size() == maxPlayers;
 	}
 	
-	public void move(Message move){
+	public void handleGameMessage(Message move){
 		
 		if(move instanceof StartGame){
 			if(startGame())
@@ -132,7 +132,14 @@ public class Game extends Observable{
 		
 		if(move instanceof MoveToSet){
 			MoveToSet temp = (MoveToSet)(move);
-			//TODO
+			if(!started ||
+				!temp.getSender().equals( players.get(currTurn) ) ||
+				!table.removeFromSet(temp.getSource(), temp.getTile()))
+			{
+				server.send(move.getSender(), new WrongTurn());
+			}else{
+				table.addToSet(temp.getDestination(), temp.getTile());
+			}
 		}
 		
 		

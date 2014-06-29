@@ -15,7 +15,7 @@ public class GameTest {
 	
 	@Before
 	public void setUp(){
-		game = new Game();
+		game = new Game(null);
 		game.addPlayer(new Player("Player1"));
 		assertFalse(game.startGame());
 		for(int i = 2; i<5;i++)
