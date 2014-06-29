@@ -87,7 +87,11 @@ public class Chat extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Set s = new Set();
 				s.add(new Tile(Color.Black, 1));
+				s.add(new Tile(Color.Black, 6));
+				s.add(new Tile(Color.Yellow, 9));
+				s.add(new Tile(Color.Blue, 3));
 				client.handleMessage(new SendHand("Woot", s));
+				//TODO start the game
 			}
 		});
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();
