@@ -113,7 +113,7 @@ public class Game extends Observable{
 				server.send(players.get(currTurn).getName(), new YourTurn());
 			}else
 				server.send(move.getSender(), new ChatMessage("Server","Nope"));
-		}		
+		}//startgame		
 		
 		if(move instanceof NewSet){
 			NewSet temp = (NewSet)(move);
@@ -140,6 +140,7 @@ public class Game extends Observable{
 				server.send(move.getSender(), new WrongTurn());
 			}else{
 				table.addToSet(temp.getDestination(), temp.getTile());
+				players.get(currTurn).remove(temp.getTile());
 				server.sendAll(move);
 				recently.add(temp.getTile());
 			}

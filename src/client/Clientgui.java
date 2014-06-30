@@ -179,6 +179,7 @@ public class Clientgui {
 			sendMessage(new Introduction(gui.playerName));
 
 		if(message instanceof SendHand){
+			//Why the actual fuck!!!
 			//System.out.println("Client/SendHand/"+((SendHand) message).getHand());
 			System.out.println("-------------------------");
 			System.out.println(((SendHand) message).getHand());
@@ -198,7 +199,7 @@ public class Clientgui {
 			//System.out.println(message.getSender()+" "+playerName);
 			if(message.getSender().equals(playerName)){
 				gameboard.gametile = null;
-				//System.out.println("Remove:"+gameboard.hand.s.remove(s.getFirst()));
+				gameboard.hand.s.remove(s.getFirst());
 				gameboard.hand.invalidate();
 				gameboard.hand.validate();
 				gameboard.hand.repaint();
