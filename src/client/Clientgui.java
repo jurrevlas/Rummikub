@@ -175,22 +175,16 @@ public class Clientgui {
 	}
 	
 	public void handleMessage(Message message){
-		if(message instanceof Introduction)
+		if(message instanceof Introduction){
 			sendMessage(new Introduction(gui.playerName));
+		}
 
 		if(message instanceof SendHand){
-			//Why the actual fuck!!!
-			//System.out.println("Client/SendHand/"+((SendHand) message).getHand());
-			System.out.println("-------------------------");
-			System.out.println(((SendHand) message).getHand());
-			System.out.println(((SendHand) message).getHand().toString());
-			System.out.println(((SendHand) message).getMessage());
-			System.out.println("-------------------------");
 			gameboard.setHand(((SendHand) message).getHand());
 			gameboard.invalidate();
 			gameboard.hand.invalidate();
 			frame.validate();
-			gui.pnlChat.printMessage(message.getSender(),message.getMessage());
+			//gui.pnlChat.printMessage(message.getSender(),message.getMessage());
 		}
 		
 		if(message instanceof NewSet){

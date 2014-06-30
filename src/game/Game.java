@@ -170,7 +170,7 @@ public class Game extends Observable{
 				server.sendAll(move);
 				recently.add(temp.getTile());
 			}
-			//System.out.println(table.toString());
+			
 		}
 		
 		if(move instanceof MoveToHand){
@@ -194,23 +194,18 @@ public class Game extends Observable{
 				!move.getSender().equals(players.get(currTurn).getName())){
 				server.send(move.getSender(), new WrongTurn());
 			}else{
+				System.out.println(table.toString());
 				int status = endTurn();
 				if(-1 == status){
 					server.sendAll( new ChatMessage("Server", "Table not consistent. Restored Backup."));
 					server.sendAll( new SendTable("Server",table));
-					players.get((currTurn)%players.size()).add(table.popFromStack());
-					server.send(players.get((currTurn)%players.size()).getName(),
-								new SendHand("Server",players.get((currTurn)%players.size())));
+					SendHand sh = new SendHand("Server",players.get(currTurn));					
+					server.send(players.get((currTurn)%players.size()).getName(),sh);
 				}else if(0 == status){
 					server.sendAll(new GameWon("Server",players.get(currTurn)));
 				}else{
 					if(recently.size() == 0){
-						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-						System.out.println(players.get(currTurn));
-						players.get(currTurn).add(table.popFromStack());
-						System.out.println(players.get(currTurn));
-						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-						//System.out.println("SERVER: "+players.get(currTurn));
+						
 						server.send(players.get(currTurn).getName(),
 							new SendHand("Server",players.get(currTurn)));
 					}
@@ -232,13 +227,16 @@ public class Game extends Observable{
 	
 	
 	public int endTurn(){
-		if(!table.isValid()){
+		if(!table.isValid()){			
 			restoreBackUp();
+			players.get(currTurn).add(table.popFromStack());
 			return -1;
 		}else if(players.get(currTurn).size() == 0){
 			won = true;
 			return 0;
-		}else{			
+		}else{
+			if(recently.size() == 0)
+				players.get(currTurn).add(table.popFromStack());
 			backUp();
 			return 1;
 		}
